@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "fullName": "Luis Alberto Roa Gonzales",
+      "dateOfBirth": "15 oct 1990",
+      "username": "Luis Gonzales",
+      "password": "123456",
+      "id": 1
+    }
+  ]
+}
