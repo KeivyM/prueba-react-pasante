@@ -1,5 +1,7 @@
 // import { useContext } from "react";
 import { Pagination } from "react-bootstrap";
+import { CardPosts } from "../components/Posts/CardPosts";
+// import { Card } from "../components/Posts/CardPosts";
 // import { PostsContext } from "../context/PostsContext";
 import { items } from "../helpers/ItemsPagination";
 
@@ -7,11 +9,37 @@ export const PostsPage = () => {
   // const { posts } = useContext(PostsContext);
 
   // console.log(posts);
-
+  const array = [1, 2, 3, 4, 5];
   return (
-    <div>
-      PostsPage
-      <Pagination size="sm">{items}</Pagination>
+    <div
+      className="container-xl px-5 text-center"
+      style={{ background: "#ddd", height: "max-content", minHeight: "400px" }}
+    >
+      <h3
+        className="col-12 text-center py-2"
+        style={{ background: "grey", display: "grid", height: "max-content" }}
+      >
+        Posts
+      </h3>
+      <div
+        className="d-flex justify-content-center"
+        style={{
+          background: "#ada",
+          height: "max-content",
+          flexWrap: "wrap",
+          gap: "10px",
+        }}
+      >
+        {array.map(() => (
+          <CardPosts />
+        ))}
+      </div>
+      <div
+        className="container d-inline-flex justify-content-center pt-2"
+        // style={{ background: "red" }}
+      >
+        <Pagination>{items}</Pagination>
+      </div>
     </div>
   );
 };
