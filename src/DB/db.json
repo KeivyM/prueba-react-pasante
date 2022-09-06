@@ -5,7 +5,23 @@
       "dateOfBirth": "15 oct 1990",
       "username": "Luis Gonzales",
       "password": "123456",
+      "email": "luisRoa@gmail.com",
       "id": 1
+    }
+  ],
+  "posts": [
+    {
+      "title": "jhkl",
+      "subtitle": "dsfgg",
+      "content": "ghjskdfjhgj...",
+      "idUser": 1
+    }
+  ],
+  "comments": [
+    {
+      "username": "Luis Gonzales",
+      "comment": "dshfsahdks...",
+      "idPost": 3
     }
   ]
 }
