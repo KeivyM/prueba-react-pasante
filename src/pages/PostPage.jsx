@@ -1,64 +1,87 @@
-import React from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import axios from "axios";
+import { useContext } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const PostPage = () => {
+  const { users } = useContext(AuthContext);
+
+  // const { debo recibir del contexto de auth el id del usuario para cuando cree un post pasarle el id en el atributo idUser } = useContext(PostsContext);
+  // debo guardar el usuario autenticado en localstorage y cuando cree un post o un comentario de alli obtengo el id para el idUser
+  let navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  // console.log(errors);
+  const createPost = async (value) => {
+    const time = Date.now();
+    const now = new Date(time).toUTCString();
+    value.dateCreated = now;
+    // value.idUser =
 
-  const funcion = (value) => {
-    console.log(value);
+    await axios.post("http://localhost:3002/posts", value);
+    reset();
+    navigate("/posts");
   };
 
   return (
     <div
-      className="container-sm p-5"
-      style={{ background: "#add", height: "100vh" }}
+      className="container d-flex align-items-center"
+      style={{ height: "100vh" }}
     >
-      <Form onSubmit={handleSubmit(funcion)}>
-        <Form.Group className="mb-3" controlId="formGroupFullName">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            name="title"
-            type="text"
-            placeholder="Enter Title"
-            {...register("title", { required: true })}
-          />
-          {errors.fullName?.type === "required" && "Full Name is required"}
-        </Form.Group>
+      <div
+        className="container p-5"
+        style={{ background: "#ddd", maxWidth: "600px" }}
+      >
+        <h2 className="text-center">New Post</h2>
 
-        <FloatingLabel
-          controlId="floatingInput"
-          label="Email address"
-          className="mb-3"
-        >
-          <Form.Control type="email" placeholder="name@example.com" />
-        </FloatingLabel>
+        <Form onSubmit={handleSubmit(createPost)}>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Title"
+              {...register("title", { required: true })}
+            />
+            {errors.title?.type === "required" && "Title is required"}
+          </Form.Group>
 
-        <FloatingLabel controlId="floatingPassword" label="Password">
-          <Form.Control type="password" placeholder="Password" />
-        </FloatingLabel>
-        {/* <div class="form-floating">
-<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-<label for="floatingPassword">Password</label>
-</div> */}
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Subtitle"
+              {...register("subtitle", { required: true })}
+            />
+            {errors.subtitle?.type === "required" && "Subtitle is required"}
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formGroupEmail">
+          <Form.Group className="mb-3">
+            <Form.Control
+              as="textarea"
+              placeholder="Content"
+              style={{ minHeight: "150px" }}
+              {...register("content", { required: true })}
+            />
+            {errors.content?.type === "required" && "Content is required"}
+          </Form.Group>
+
+          {/* <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             name="email"
-            type="email"
+            // type="email"
+            as="textarea"
             placeholder="Enter email"
             {...register("email", { required: true })}
           />
           {errors.email?.type === "required" && "Email is required"}
-        </Form.Group>
-
+        </Form.Group> */}
+          {/* 
         <Form.Group className="mb-3" controlId="formGroupUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -83,11 +106,16 @@ export const PostPage = () => {
             })}
           />
           {errors.password?.type === "required" && "Password is required"}
-        </Form.Group>
-        <Button style={{ width: "100%" }} variant="primary" type="submit">
-          Register
-        </Button>
-      </Form>
+        </Form.Group> */}
+          <Button
+            className="w-50 d-block mx-auto"
+            variant="primary"
+            type="submit"
+          >
+            Create
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 };

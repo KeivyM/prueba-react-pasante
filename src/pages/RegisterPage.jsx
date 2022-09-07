@@ -3,7 +3,10 @@ import FormRegister from "../components/FormRegister";
 
 export const RegisterPage = () => {
   return (
-    <div className="container-fluid" style={{ height: "100vh" }}>
+    <div
+      className="container-fluid d-flex align-items-center"
+      style={{ height: "100vh" }}
+    >
       <FormRegister />
     </div>
   );

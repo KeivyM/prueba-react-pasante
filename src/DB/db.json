@@ -1,12 +1,26 @@
 {
   "users": [
     {
-      "fullName": "Luis Alberto Roa Gonzales",
+      "fullname": "Luis Alberto Roa Gonzales",
       "dateOfBirth": "15 oct 1990",
       "username": "Luis Gonzales",
       "password": "123456",
       "email": "luisRoa@gmail.com",
       "id": 1
+    },
+    {
+      "fullname": "Andrea Ramirez",
+      "email": "andreaRami@gmail.com",
+      "username": "andre",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "fullname": "Pablo Lopez",
+      "email": "pablo@gmail.com",
+      "username": "pablo L",
+      "password": "123456",
+      "id": 3
     }
   ],
   "posts": [
@@ -14,7 +28,47 @@
       "title": "jhkl",
       "subtitle": "dsfgg",
       "content": "ghjskdfjhgj...",
-      "idUser": 1
+      "idUser": 1,
+      "id": 1
+    },
+    {
+      "title": "Nuevo Post",
+      "subtitle": "Mi post",
+      "post": "Este es un post de prueba. Estoy probando en jsonServer",
+      "id": 2
+    },
+    {
+      "title": "ghjkl",
+      "subtitle": "fghjkl",
+      "content": "ghjkl",
+      "id": 3
+    },
+    {
+      "title": "My Post",
+      "subtitle": "Prueba",
+      "content": "Esta es solo una prueba ",
+      "id": 4
+    },
+    {
+      "title": "hjk",
+      "subtitle": "hgjk",
+      "content": "hgjk",
+      "dateCreated": "Tue, 06 Sep 2022 22:26:09 GMT",
+      "id": 5
+    },
+    {
+      "title": "fghjk",
+      "subtitle": "fghj",
+      "content": "kfcgvhbjn",
+      "dateCreated": "Tue, 06 Sep 2022 22:36:04 GMT",
+      "id": 6
+    },
+    {
+      "title": "ghjk",
+      "subtitle": "fghj",
+      "content": "dfghjkl;",
+      "dateCreated": "Wed, 07 Sep 2022 00:40:24 GMT",
+      "id": 7
     }
   ],
   "comments": [

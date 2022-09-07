@@ -1,12 +1,13 @@
 import React from "react";
 import { Avatar } from "../components/Avatar";
+import { AddComment } from "../components/Posts/AddComment";
 import { Comment } from "../components/Posts/Comment";
 import { Post } from "../components/Posts/Post";
 
 export const PostsDetails = () => {
   return (
     <div
-      className="container-xl"
+      className="container-xxl"
       style={{ background: "#dee", minHeight: "100vh", height: "max-content" }}
     >
       <h2 className="text-center pt-3 fs-1">Post Details</h2>
@@ -22,6 +23,7 @@ export const PostsDetails = () => {
 
           <Comment />
           <Comment />
+          <AddComment />
         </div>
       </div>
     </div>

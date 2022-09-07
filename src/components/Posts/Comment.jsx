@@ -6,7 +6,6 @@ export const Comment = () => {
       <div className="d-flex align-items-center gap-2 mb-2">
         <Avatar size={25} />
         <span className="d-inline">
-          by{" "}
           <strong className="text-decoration-underline">Lorena Moreno</strong>
         </span>
       </div>

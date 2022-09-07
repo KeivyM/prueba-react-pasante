@@ -1,14 +1,14 @@
-// import { useContext } from "react";
+import { useContext } from "react";
 import { Pagination } from "react-bootstrap";
 import { CardPosts } from "../components/Posts/CardPosts";
 // import { Card } from "../components/Posts/CardPosts";
-// import { PostsContext } from "../context/PostsContext";
+import { PostsContext } from "../context/PostsContext";
 import { items } from "../helpers/ItemsPagination";
 
 export const PostsPage = () => {
-  // const { posts } = useContext(PostsContext);
+  const { posts } = useContext(PostsContext);
 
-  // console.log(posts);
+  console.log(posts);
   const array = [1, 2, 3, 4, 5];
   return (
     <div
@@ -30,8 +30,8 @@ export const PostsPage = () => {
           gap: "10px",
         }}
       >
-        {array.map(() => (
-          <CardPosts />
+        {posts.map((post, index) => (
+          <CardPosts {...post} />
         ))}
       </div>
       <div
