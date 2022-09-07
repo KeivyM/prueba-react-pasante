@@ -7,8 +7,8 @@ import { items } from "../helpers/ItemsPagination";
 
 export const PostsPage = () => {
   const { posts } = useContext(PostsContext);
+  // console.log(posts);
 
-  console.log(posts);
   const array = [1, 2, 3, 4, 5];
   return (
     <div
@@ -31,7 +31,7 @@ export const PostsPage = () => {
         }}
       >
         {posts.map((post, index) => (
-          <CardPosts {...post} />
+          <CardPosts key={index} {...post} />
         ))}
       </div>
       <div

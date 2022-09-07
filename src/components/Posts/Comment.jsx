@@ -1,20 +1,19 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { Avatar } from "../Avatar";
 
-export const Comment = () => {
+export const Comment = ({ username, comment }) => {
+  const { users, userAuth } = useContext(AuthContext);
+
   return (
     <div className="container mb-3">
       <div className="d-flex align-items-center gap-2 mb-2">
         <Avatar size={25} />
         <span className="d-inline">
-          <strong className="text-decoration-underline">Lorena Moreno</strong>
+          <strong className="text-decoration-underline">{username}</strong>
         </span>
       </div>
-      <div className="container mx-3">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-        provident, dolorem vitae atque unde omnis sequi excepturi fugiat
-        officiis dicta? Possimus nam quis id, repellat unde explicabo pariatur
-        nostrum enim!
-      </div>
+      <div className="container mx-3">{comment}</div>
     </div>
   );
 };

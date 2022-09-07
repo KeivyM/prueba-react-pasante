@@ -1,81 +1,58 @@
 {
   "users": [
     {
-      "fullname": "Luis Alberto Roa Gonzales",
-      "dateOfBirth": "15 oct 1990",
-      "username": "Luis Gonzales",
-      "password": "123456",
-      "email": "luisRoa@gmail.com",
+      "fullname": "Pablo Lopez",
+      "email": "pablo@gmail.com",
+      "dateOfBirth": "1996-03-02",
+      "username": "Pablo Lopez",
+      "password": "123",
       "id": 1
     },
     {
-      "fullname": "Andrea Ramirez",
-      "email": "andreaRami@gmail.com",
-      "username": "andre",
-      "password": "123456",
+      "fullname": "Jorge Ramirez",
+      "email": "jorge@gmail.com",
+      "dateOfBirth": "2003-04-09",
+      "username": "Jorge R",
+      "password": "123",
       "id": 2
-    },
-    {
-      "fullname": "Pablo Lopez",
-      "email": "pablo@gmail.com",
-      "username": "pablo L",
-      "password": "123456",
-      "id": 3
     }
   ],
   "posts": [
     {
-      "title": "jhkl",
-      "subtitle": "dsfgg",
-      "content": "ghjskdfjhgj...",
+      "title": "Post de prueba",
+      "subtitle": "post",
+      "content": "probando...",
+      "dateCreated": "Wed, 07 Sep 2022 16:20:10 GMT",
       "idUser": 1,
       "id": 1
     },
     {
-      "title": "Nuevo Post",
-      "subtitle": "Mi post",
-      "post": "Este es un post de prueba. Estoy probando en jsonServer",
+      "title": "prueba de jorge",
+      "subtitle": "post ",
+      "content": "prueba 2",
+      "dateCreated": "Wed, 07 Sep 2022 16:22:01 GMT",
+      "idUser": 2,
       "id": 2
-    },
-    {
-      "title": "ghjkl",
-      "subtitle": "fghjkl",
-      "content": "ghjkl",
-      "id": 3
-    },
-    {
-      "title": "My Post",
-      "subtitle": "Prueba",
-      "content": "Esta es solo una prueba ",
-      "id": 4
-    },
-    {
-      "title": "hjk",
-      "subtitle": "hgjk",
-      "content": "hgjk",
-      "dateCreated": "Tue, 06 Sep 2022 22:26:09 GMT",
-      "id": 5
-    },
-    {
-      "title": "fghjk",
-      "subtitle": "fghj",
-      "content": "kfcgvhbjn",
-      "dateCreated": "Tue, 06 Sep 2022 22:36:04 GMT",
-      "id": 6
-    },
-    {
-      "title": "ghjk",
-      "subtitle": "fghj",
-      "content": "dfghjkl;",
-      "dateCreated": "Wed, 07 Sep 2022 00:40:24 GMT",
-      "id": 7
     }
   ],
   "comments": [
     {
-      "username": "Luis Gonzales",
-      "comment": "dshfsahdks...",
-      "idPost": 3
+      "comment": "comentario1",
+      "username": "Jorge R",
+      "idPost": "undefined",
+      "id": 1
+    },
+    {
+      "comment": "Yo comento que...",
+      "username": "Pablo Lopez",
+      "idPost": "undefined",
+      "id": 2
+    },
+    {
+      "comment": "bn",
+      "username": "Jorge R",
+      "idPost": "undefined",
+      "id": 3
     }
   ]
 }

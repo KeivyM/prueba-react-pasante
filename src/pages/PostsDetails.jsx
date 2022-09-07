@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar } from "../components/Avatar";
 import { AddComment } from "../components/Posts/AddComment";
 import { Comment } from "../components/Posts/Comment";
 import { Post } from "../components/Posts/Post";
+import { CommentsContex } from "../context/CommentsContext";
 
 export const PostsDetails = () => {
+  const { comments } = useContext(CommentsContex);
+
   return (
     <div
       className="container-xxl"
@@ -21,8 +24,18 @@ export const PostsDetails = () => {
         <div className="container">
           <span className="d-block mb-3">Comments</span>
 
-          <Comment />
-          <Comment />
+          {/* <Comment />
+          <Comment /> */}
+
+          {comments.map((comment, index) => {
+            return (
+              <Comment
+                key={index}
+                username={comment.username}
+                comment={comment.comment}
+              />
+            );
+          })}
           <AddComment />
         </div>
       </div>

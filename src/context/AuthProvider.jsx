@@ -5,17 +5,20 @@ import { AuthContext } from "./AuthContext";
 const url = "http://localhost:3002/users";
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false);
-  const [userAuth, setUserAuth] = useState({});
-  const [users, setUsers] = useState([]);
+  const [updateData, setUpdateData] = useState("actualizado");
+  const [auth, setAuth] = useState(false); // debe tener un valor boolean dependiendo si esta autenticado
+  const [userAuth, setUserAuth] = useState({}); // debe tener el objeto de el usuario autenticado
+  const [users, setUsers] = useState([]); // debe tener los usuarios registrados
 
   useEffect(() => {
+    //obtiene los usuarios del jsonserver
     axios.get(url).then((res) => {
       setUsers(res.data);
     });
-  }, []);
+  }, [updateData]);
 
   useEffect(() => {
+    //obtiene el objeto del usuario autenticado
     const data = localStorage.getItem("userAuth");
     if (!data) return;
 
@@ -34,7 +37,9 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <>
-      <AuthContext.Provider value={{ users, userAuth, auth, setAuth }}>
+      <AuthContext.Provider
+        value={{ users, userAuth, auth, setAuth, setUpdateData }}
+      >
         {children}
       </AuthContext.Provider>
     </>

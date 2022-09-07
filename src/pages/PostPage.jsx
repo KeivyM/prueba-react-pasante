@@ -4,10 +4,12 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { PostsContext } from "../context/PostsContext";
 
 export const PostPage = () => {
-  const { users } = useContext(AuthContext);
-
+  const { users, userAuth } = useContext(AuthContext);
+  const { updatePosts, setUpdatePosts } = useContext(PostsContext);
+  // console.log(userAuth.id);
   // const { debo recibir del contexto de auth el id del usuario para cuando cree un post pasarle el id en el atributo idUser } = useContext(PostsContext);
   // debo guardar el usuario autenticado en localstorage y cuando cree un post o un comentario de alli obtengo el id para el idUser
   let navigate = useNavigate();
@@ -23,10 +25,12 @@ export const PostPage = () => {
     const time = Date.now();
     const now = new Date(time).toUTCString();
     value.dateCreated = now;
-    // value.idUser =
+    value.idUser = userAuth.id;
+    console.log("aqui", userAuth.id);
 
     await axios.post("http://localhost:3002/posts", value);
     reset();
+    setUpdatePosts(!updatePosts);
     navigate("/posts");
   };
 

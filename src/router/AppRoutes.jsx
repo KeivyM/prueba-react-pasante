@@ -14,7 +14,6 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 export const AppRoutes = () => {
   const { auth } = useContext(AuthContext);
 
-  // console.log(!!auth);
   return (
     <Routes>
       {!!auth ? (
@@ -24,13 +23,13 @@ export const AppRoutes = () => {
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/:id" element={<PostsDetails />} />
           <Route path="/404" element={<NotFoundPage />} />
-          <Route path="/*" element={<Navigate to="/profile/23" />} />
+          {/* <Route path="/*" element={<Navigate to="/404" />} /> */}
         </>
       ) : (
         <>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/*" element={<Navigate to="/login" />} />
+          {/* <Route path="/*" element={<Navigate to="/login" />} /> */}
         </>
       )}
 

@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useDataById } from "../helpers/useDataById";
 
 function FormRegister() {
+  let navigate = useNavigate();
+  const { users, setAuth, setUpdateData } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -12,8 +17,39 @@ function FormRegister() {
   } = useForm();
 
   const createUser = async (value) => {
+    setUpdateData("actualizando");
+
+    const emailValid = users.filter((user) => user.email === value.email);
+    if (emailValid.length !== 0)
+      return console.log("otro usuario existe con ese email");
+
     await axios.post("http://localhost:3002/users", value);
+
+    const us = await axios.get("http://localhost:3002/users");
+    // console.log(us.data);
+    const u = us.data.filter((user) => user.email === value.email);
+    // console.log(u[0]);
+    // console.log(value);
+    localStorage.setItem("userAuth", JSON.stringify(u[0]));
     reset();
+    setAuth(true);
+    setUpdateData("actualizado");
+    navigate("/profile/32", { replace: true });
+
+    // setAuth(true);
+    // navigate("/profile/32", { replace: true });
+  };
+
+  const validarUser = (value) => {
+    const emailValid = users.filter((user) => user.email === value.email);
+    if (emailValid.length === 0) return;
+
+    const passwordValid = emailValid[0].password === value.password;
+    if (passwordValid) {
+      localStorage.setItem("userAuth", JSON.stringify(...emailValid));
+      setAuth(true);
+    }
+    navigate("/profile/32", { replace: true });
   };
 
   return (

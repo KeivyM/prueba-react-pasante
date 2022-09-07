@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { Card } from "react-bootstrap";
+import { AuthContext } from "../context/AuthContext";
 
 export const ProfilePage = () => {
+  const { userAuth } = useContext(AuthContext);
+  const { username } = userAuth;
+
   return (
     <div
       className="container-lg p-3"
@@ -34,7 +39,7 @@ export const ProfilePage = () => {
             position: "relative",
           }}
         >
-          <Card.Title className="">Card Title</Card.Title>
+          <Card.Title className="">{username}</Card.Title>
           <Card.Subtitle className="mt-2">Web Designer</Card.Subtitle>
           <Card.Text className="mt-3 fst-italic">
             Some quick example text to build on the card title and make.
