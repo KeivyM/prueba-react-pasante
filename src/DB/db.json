@@ -15,6 +15,14 @@
       "username": "Jorge R",
       "password": "123",
       "id": 2
+    },
+    {
+      "fullname": "Javier Peña",
+      "email": "javier@gmail.com",
+      "dateOfBirth": "0324-03-02",
+      "username": "Javier P ",
+      "password": "123",
+      "id": 3
     }
   ],
   "posts": [
@@ -33,6 +41,14 @@
       "dateCreated": "Wed, 07 Sep 2022 16:22:01 GMT",
       "idUser": 2,
       "id": 2
+    },
+    {
+      "title": "My post",
+      "subtitle": "Este post es de javieer ",
+      "content": "Probando",
+      "dateCreated": "Wed, 07 Sep 2022 20:27:13 GMT",
+      "idUser": 3,
+      "id": 3
     }
   ],
   "comments": [
@@ -53,6 +69,18 @@
       "username": "Jorge R",
       "idPost": "undefined",
       "id": 3
+    },
+    {
+      "comment": "hola",
+      "username": "Javier P ",
+      "idPost": "undefined",
+      "id": 4
+    },
+    {
+      "comment": "soy javier",
+      "username": "Javier P ",
+      "idPost": "undefined",
+      "id": 5
     }
   ]
 }

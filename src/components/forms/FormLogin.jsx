@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export const FormLogin = () => {
   let navigate = useNavigate();
 
-  const { users, setAuth } = useContext(AuthContext);
-
+  const { users, setAuth, userAuth, setUserAuth } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -17,6 +16,7 @@ export const FormLogin = () => {
   } = useForm();
 
   const validarUser = (value) => {
+    console.log("aeuii", userAuth);
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length === 0) return console.log("correo incorrecto");
 
@@ -25,9 +25,11 @@ export const FormLogin = () => {
     if (!passwordValid) return console.log("contraseña incorrecta");
 
     localStorage.setItem("userAuth", JSON.stringify(...emailValid));
+    console.log(...emailValid);
+    setUserAuth(...emailValid);
     setAuth(true);
     reset();
-    navigate("/profile/32", { replace: true });
+    navigate(`/profile/${emailValid[0].id}`, { replace: true });
   };
 
   return (

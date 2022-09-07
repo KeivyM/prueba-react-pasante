@@ -1,10 +1,26 @@
-import { useContext } from "react";
-import { Card } from "react-bootstrap";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../context";
+// import { useDataById } from "../helpers/useDataById";
 
 export const ProfilePage = () => {
-  const { userAuth } = useContext(AuthContext);
+  const { userAuth, setAuth } = useContext(AuthContext);
   const { username } = userAuth;
+  let navigate = useNavigate();
+  // let { id } = useParams();
+  // console.log(Number(id));
+
+  // const { user } = useDataById(Number(id));
+  // console.log(user);
+
+  // const { username } = user;
+
+  const logout = () => {
+    localStorage.removeItem("userAuth");
+    setAuth(false);
+    navigate("/", { replace: true });
+  };
 
   return (
     <div
@@ -15,6 +31,7 @@ export const ProfilePage = () => {
         minWidth: "1000px",
       }}
     >
+      <Button onClick={logout}>Logout</Button>
       <Card
         style={{
           background: "#eee",

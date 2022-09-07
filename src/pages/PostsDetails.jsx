@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { Avatar } from "../components/Avatar";
-import { AddComment } from "../components/Posts/AddComment";
-import { Comment } from "../components/Posts/Comment";
-import { Post } from "../components/Posts/Post";
-import { CommentsContex } from "../context/CommentsContext";
+import { useContext } from "react";
+import { AddComment, Comment } from "../components/comments";
+import { Post } from "../components/Posts";
+import { CommentsContex } from "../context";
 
 export const PostsDetails = () => {
   const { comments } = useContext(CommentsContex);
@@ -23,9 +21,6 @@ export const PostsDetails = () => {
 
         <div className="container">
           <span className="d-block mb-3">Comments</span>
-
-          {/* <Comment />
-          <Comment /> */}
 
           {comments.map((comment, index) => {
             return (

@@ -1,39 +1,38 @@
 import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context";
 import {
   LoginPage,
+  NotFoundPage,
   PostPage,
   PostsDetails,
   PostsPage,
   ProfilePage,
   RegisterPage,
 } from "../pages";
-import { NotFoundPage } from "../pages/NotFoundPage";
 
 export const AppRoutes = () => {
   const { auth } = useContext(AuthContext);
-
   return (
     <Routes>
       {!!auth ? (
         <>
+          <Route path="/" element={<Navigate to={`/profile/23`} />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/post" element={<PostPage />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/:id" element={<PostsDetails />} />
-          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
+          {/* <Route path="/404" element={<NotFoundPage />} /> */}
           {/* <Route path="/*" element={<Navigate to="/404" />} /> */}
         </>
       ) : (
         <>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/*" element={<Navigate to="/login" />} /> */}
+          <Route path="/*" element={<Navigate to="/login" />} />
         </>
       )}
-
-      {/* <Route path="/" element={<Navigate to="/login" />} /> */}
     </Routes>
   );
 };

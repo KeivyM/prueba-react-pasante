@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import { Pagination } from "react-bootstrap";
-import { CardPosts } from "../components/Posts/CardPosts";
-// import { Card } from "../components/Posts/CardPosts";
-import { PostsContext } from "../context/PostsContext";
+import { CardPosts } from "../components/Posts";
+import { PostsContext } from "../context";
 import { items } from "../helpers/ItemsPagination";
 
 export const PostsPage = () => {
   const { posts } = useContext(PostsContext);
-  // console.log(posts);
 
   const array = [1, 2, 3, 4, 5];
   return (

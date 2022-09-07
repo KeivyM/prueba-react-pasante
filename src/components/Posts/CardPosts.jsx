@@ -4,9 +4,7 @@ import { Avatar } from "../Avatar";
 
 export const CardPosts = ({ title, idUser, dateCreated }) => {
   const { user } = useDataById(idUser);
-  // console.log(user);
-
-  // console.log(user[0].username);
+  const { username } = user;
 
   return (
     <Card style={{ width: "18rem" }}>
