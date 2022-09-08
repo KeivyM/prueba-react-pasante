@@ -11,7 +11,11 @@ export const PostsPage = () => {
   return (
     <div
       className="container-xl px-5 text-center"
-      style={{ background: "#ddd", height: "max-content", minHeight: "400px" }}
+      style={{
+        background: "#ddd",
+        height: "calc(100vh - 58px)",
+        minHeight: "400px",
+      }}
     >
       <h3
         className="col-12 text-center py-2"

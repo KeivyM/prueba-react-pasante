@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ export const FormLogin = ({ setShow }) => {
     reset,
     formState: { errors },
   } = useForm();
+
+  const [revealed, setRevealed] = useState(false);
 
   const validarUser = (value) => {
     const emailValid = users.filter((user) => user.email === value.email);
@@ -33,6 +35,10 @@ export const FormLogin = ({ setShow }) => {
     navigate(`/profile/${emailValid[0].id}`);
   };
 
+  const handleReveal = () => {
+    setRevealed(!revealed);
+  };
+
   return (
     <div
       className="container-sm p-5 pb-4"
@@ -49,7 +55,7 @@ export const FormLogin = ({ setShow }) => {
             type="email"
             placeholder="name@example.com"
             {...register("email", { required: true })}
-          />
+          ></Form.Control>
           {errors.email?.type === "required" && "Email is required"}
         </FloatingLabel>
 
@@ -59,10 +65,16 @@ export const FormLogin = ({ setShow }) => {
           className="mb-3"
         >
           <Form.Control
-            type="password"
+            type={revealed ? "text" : "password"}
             placeholder="Password"
             {...register("password", { required: true })}
           />
+          <Form.Check
+            onClick={handleReveal}
+            type="checkbox"
+            label="Show Password"
+          />
+          {/* <Button onClick={handleReveal}>Show Password</Button> */}
           {errors.password?.type === "required" && "Password is required"}
         </FloatingLabel>
 

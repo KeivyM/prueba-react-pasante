@@ -4,7 +4,7 @@ export const PostPage = () => {
   return (
     <div
       className="container d-flex align-items-center"
-      style={{ height: "100vh" }}
+      style={{ height: "calc(100vh - 58px)" }}
     >
       <div
         className="container p-5"

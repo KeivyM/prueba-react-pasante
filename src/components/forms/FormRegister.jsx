@@ -2,13 +2,14 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export const FormRegister = ({ setShow }) => {
+  const [showPassword, setPassword] = useState(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
   let navigate = useNavigate();
-  const { users, setAuth, userAuth, updateData, setUserAuth, setUpdateData } =
-    useContext(AuthContext);
+  const { users, setAuth, updateData, setUpdateData } = useContext(AuthContext);
 
   const {
     register,
@@ -114,9 +115,14 @@ export const FormRegister = ({ setShow }) => {
           className="mb-3"
         >
           <Form.Control
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             {...register("password", { required: true })}
+          />
+          <Form.Check
+            onClick={() => setPassword(!showPassword)}
+            type="checkbox"
+            label="Show Password"
           />
           {errors.password?.type === "required" && "Password is required"}
         </FloatingLabel>
@@ -127,9 +133,14 @@ export const FormRegister = ({ setShow }) => {
           className="mb-3"
         >
           <Form.Control
-            type="password"
+            type={showPasswordRepeat ? "text" : "password"}
             placeholder="Password"
             // {...register("repeatPassword", { required: true })}
+          />
+          <Form.Check
+            onClick={() => setShowPasswordRepeat(!showPasswordRepeat)}
+            type="checkbox"
+            label="Show Password"
           />
           {/* {errors.repeatPassword?.type === "required" && "Password is required"} */}
         </FloatingLabel>

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { NavBar } from "../components/NavBar";
 import { AuthContext } from "../context";
 import {
   LoginPage,
@@ -14,29 +15,32 @@ import {
 export const AppRoutes = () => {
   const { auth, userAuth } = useContext(AuthContext);
   return (
-    <Routes>
-      {!!auth ? (
-        <>
-          <Route
-            path="/"
-            element={<Navigate to={`/profile/${userAuth?.id}`} />}
-          />
-          <Route path="/profile/:id" element={<ProfilePage />} />
-          <Route path="/post" element={<PostPage />} />
-          <Route path="/posts" element={<PostsPage />} />
-          <Route path="/posts/:id" element={<PostsDetails />} />
-          <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/login" element={<Navigate to="/" />} />
-          <Route path="/register" element={<Navigate to="/" />} />
-        </>
-      ) : (
-        <>
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/*" element={<Navigate to="/login" />} />
-        </>
-      )}
-    </Routes>
+    <>
+      {!!auth && <NavBar />}
+      <Routes>
+        {!!auth ? (
+          <>
+            <Route
+              path="/"
+              element={<Navigate to={`/profile/${userAuth?.id}`} />}
+            />
+            <Route path="/profile/:id" element={<ProfilePage />} />
+            <Route path="/post" element={<PostPage />} />
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="/posts/:id" element={<PostsDetails />} />
+            <Route path="/*" element={<NotFoundPage />} />
+            <Route path="/login" element={<Navigate to="/" />} />
+            <Route path="/register" element={<Navigate to="/" />} />
+          </>
+        ) : (
+          <>
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/*" element={<Navigate to="/login" />} />
+          </>
+        )}
+      </Routes>
+    </>
   );
 };
 
