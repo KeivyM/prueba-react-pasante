@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export const useUserById = (id) => {
-  // debe llamarse useUserById-----<
   // debugger;
   const { users } = useContext(AuthContext);
+  // console.log(users);
   const user = users.filter((user) => user.id === id);
 
   return { user };

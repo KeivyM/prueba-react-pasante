@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-export const FormRegister = () => {
+export const FormRegister = ({ setShow }) => {
   let navigate = useNavigate();
   const { users, setAuth, userAuth, updateData, setUserAuth, setUpdateData } =
     useContext(AuthContext);
@@ -20,7 +20,10 @@ export const FormRegister = () => {
   const createUser = async (value) => {
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length !== 0)
-      return console.log("otro usuario existe con ese email");
+      return setShow([
+        true,
+        "Another user exists with that email, please check it.",
+      ]);
 
     const time = Date.now();
     const now = new Date(time).toUTCString();
@@ -31,7 +34,7 @@ export const FormRegister = () => {
     localStorage.setItem("userAuth", JSON.stringify(res.data));
 
     reset();
-    navigate(`/profile/${res.data.id}`, { replace: true });
+    navigate(`/profile/${res.data.id}`);
     setAuth(true);
     setUpdateData(!updateData);
   };

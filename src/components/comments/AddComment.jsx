@@ -22,9 +22,12 @@ export const AddComment = (idPost) => {
 
     value.comment = value.comment.trim();
     value.username = userAuth.username;
-    //---falta guardar en value el id del post al que pertenece---//
     value.idPost = idPost.idPost;
     value.idUser = userAuth.id;
+
+    const time = Date.now();
+    const now = new Date(time).toUTCString();
+    value.createdDate = now;
 
     await axios.post("http://localhost:3002/comments", value);
     reset();

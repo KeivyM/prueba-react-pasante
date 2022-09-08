@@ -38,42 +38,38 @@
       "id": 1
     },
     {
-      "title": "segundo post creado",
-      "subtitle": "Este es el primero",
-      "content": "post nuevo",
-      "createdDate": "Thu, 08 Sep 2022 01:16:46 GMT",
-      "idUser": 1,
+      "title": "post segundo por mi",
+      "subtitle": "segundo",
+      "content": "dhsjgkhadsj;ad",
+      "createdDate": "Thu, 08 Sep 2022 16:39:31 GMT",
+      "idUser": 3,
       "id": 2
     }
   ],
   "comments": [
     {
-      "comment": "ghjkjhg",
+      "comment": "hola",
       "username": "andres m",
-      "idPost": 2,
+      "idPost": 1,
       "idUser": 2,
+      "createdDate": "Thu, 08 Sep 2022 17:05:37 GMT",
       "id": 1
     },
     {
-      "comment": "ghbjn",
+      "comment": "yo comento...",
       "username": "andres m",
       "idPost": 2,
       "idUser": 2,
+      "createdDate": "Thu, 08 Sep 2022 17:05:48 GMT",
       "id": 2
     },
     {
-      "comment": "hola",
-      "username": "Pablo Lopez",
+      "comment": "yo tambien",
+      "username": "Leandro Villa",
       "idPost": 2,
-      "idUser": 1,
+      "idUser": 3,
+      "createdDate": "Thu, 08 Sep 2022 17:06:56 GMT",
       "id": 3
-    },
-    {
-      "comment": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
-      "username": "Pablo Lopez",
-      "idPost": 2,
-      "idUser": 1,
-      "id": 4
     }
   ]
 }

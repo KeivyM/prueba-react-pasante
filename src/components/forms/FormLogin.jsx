@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export const FormLogin = () => {
+export const FormLogin = ({ setShow }) => {
   let navigate = useNavigate();
 
   const { users, setAuth, setUserAuth } = useContext(AuthContext);
@@ -17,18 +17,20 @@ export const FormLogin = () => {
 
   const validarUser = (value) => {
     const emailValid = users.filter((user) => user.email === value.email);
-    if (emailValid.length === 0) return console.log("correo incorrecto");
+    if (emailValid.length === 0)
+      return setShow([true, "Incorrect email, please check it."]);
 
     const passwordValid = emailValid[0].password === value.password;
 
-    if (!passwordValid) return console.log("contraseña incorrecta");
+    if (!passwordValid)
+      return setShow([true, "Incorrect password, please check it."]);
 
     localStorage.setItem("userAuth", JSON.stringify(...emailValid));
 
     setUserAuth(...emailValid);
     setAuth(true);
     reset();
-    navigate(`/profile/${emailValid[0].id}`, { replace: true });
+    navigate(`/profile/${emailValid[0].id}`);
   };
 
   return (

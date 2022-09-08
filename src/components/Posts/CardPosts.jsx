@@ -1,18 +1,28 @@
 import { Button, Card, ListGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useUserById } from "../../hooks/useUserById";
-// import { useDataById } from "../../hooks/useUserById";
-// import { useDataById } from "../../hooks/useDataById";
 import { Avatar } from "../Avatar";
 
-export const CardPosts = ({ title, idUser, createdDate }) => {
+export const CardPosts = ({ title, idUser, createdDate, id }) => {
+  let navigate = useNavigate();
   const { user } = useUserById(idUser);
   const { username } = user;
 
+  const moreDetails = () => {
+    navigate(`${id}`);
+  };
+
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card
+      className="card-cardPosts"
+      style={{ width: "18rem" }}
+      onClick={moreDetails}
+    >
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Button variant="secondary">More details</Button>
+        {/* <Button variant="secondary" onClick={moreDetails}>
+          More details
+        </Button> */}
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>
