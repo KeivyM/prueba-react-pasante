@@ -6,7 +6,13 @@
 
        npm install
 
-- levantar Json-Server:
+- Levantar la aplicación:
+
+       npm start
+
+- Abre otra terminal ubicada dentro de proyecto ( o otra pestaña ).
+
+- Levantar Json-Server:
 
        npm run jsonServer
 

@@ -1,14 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
-export const useDataById = (id) => {
+export const useUserById = (id) => {
+  // debe llamarse useUserById-----<
   // debugger;
   const { users } = useContext(AuthContext);
-  //el problema es que aun no se a actualizado users
   const user = users.filter((user) => user.id === id);
-  // console.log("USUARIO", users);
-  // console.log("ID", id);
-  // const [user] = result;
 
   return { user };
 };

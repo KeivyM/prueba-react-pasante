@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { CommentsContex } from "../../context/CommentsContext";
 import { Avatar } from "../Avatar";
 
-export const AddComment = () => {
+export const AddComment = (idPost) => {
   const { userAuth } = useContext(AuthContext);
   const { updateComments, setUpdateComments } = useContext(CommentsContex);
 
@@ -23,7 +23,8 @@ export const AddComment = () => {
     value.comment = value.comment.trim();
     value.username = userAuth.username;
     //---falta guardar en value el id del post al que pertenece---//
-    value.idPost = "undefined";
+    value.idPost = idPost.idPost;
+    value.idUser = userAuth.id;
 
     await axios.post("http://localhost:3002/comments", value);
     reset();

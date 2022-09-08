@@ -1,20 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Button, Card } from "react-bootstrap";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context";
-import { useDataById } from "../helpers/useDataById";
+import { useUserById } from "../hooks/useUserById";
 
 export const ProfilePage = () => {
   const { userAuth, setAuth } = useContext(AuthContext);
   let { id } = useParams();
-  const { user } = useDataById(Number(id));
-  // console.log(user);
-  // debugger;
-  const [usuario, setUsuario] = useState(user);
-  // console.log("usuarioooo", usuario);
-  // useEffect(() => {
-  //   setUsuario(user);
-  // }, [user]);
+  const { user } = useUserById(Number(id));
 
   let navigate = useNavigate();
 

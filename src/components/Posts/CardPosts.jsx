@@ -1,9 +1,11 @@
 import { Button, Card, ListGroup } from "react-bootstrap";
-import { useDataById } from "../../helpers/useDataById";
+import { useUserById } from "../../hooks/useUserById";
+// import { useDataById } from "../../hooks/useUserById";
+// import { useDataById } from "../../hooks/useDataById";
 import { Avatar } from "../Avatar";
 
 export const CardPosts = ({ title, idUser, createdDate }) => {
-  const { user } = useDataById(idUser);
+  const { user } = useUserById(idUser);
   const { username } = user;
 
   return (

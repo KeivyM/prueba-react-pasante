@@ -13,7 +13,6 @@ import {
 
 export const AppRoutes = () => {
   const { auth, userAuth } = useContext(AuthContext);
-  // console.log("ROUTES", userAuth?.id);
   return (
     <Routes>
       {!!auth ? (

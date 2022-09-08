@@ -1,11 +1,19 @@
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { AddComment, Comment } from "../components/comments";
 import { Post } from "../components/Posts";
 import { CommentsContex } from "../context";
+import { filterComments } from "../helpers/filterComments";
+import { usePostById } from "../hooks/usePostById";
 
 export const PostsDetails = () => {
+  let { id } = useParams();
+  const { post } = usePostById(Number(id));
+
   const { comments } = useContext(CommentsContex);
 
+  const array = filterComments(Number(id), comments);
+  // console.log(array);
   return (
     <div
       className="container-xxl"
@@ -16,22 +24,24 @@ export const PostsDetails = () => {
         className="container w-75 p-5"
         style={{ background: "#dae", height: "max-content" }}
       >
-        <Post />
+        <Post post={post[0]} />
         <hr />
 
         <div className="container">
           <span className="d-block mb-3">Comments</span>
 
-          {comments.map((comment, index) => {
+          {array.map((comment, index) => {
+            // console.log(comment);
             return (
               <Comment
                 key={index}
                 username={comment.username}
                 comment={comment.comment}
+                idUser={comment.idUser}
               />
             );
           })}
-          <AddComment />
+          <AddComment idPost={post[0]?.id} />
         </div>
       </div>
     </div>

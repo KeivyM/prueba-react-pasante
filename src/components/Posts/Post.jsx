@@ -1,7 +1,7 @@
 import { Avatar } from "../Avatar";
 import { Date } from "./Date";
 
-export const Post = () => {
+export const Post = (post) => {
   return (
     <>
       <div className="d-flex align-items-center gap-2 mb-2">
@@ -9,20 +9,12 @@ export const Post = () => {
         <span className="d-inline">
           by{" "}
           <strong className="text-decoration-underline">Lorena Moreno</strong>
-          <Date date={"14 ago 2020"} />
+          <Date date={post?.post?.createdDate} />
         </span>
       </div>
-      <h3 className="">Titulo de el post </h3>
-      <p className="">
-        sdjhkafj dskfj dsaj Lorem ipsum, dolor sit amet consectetur adipisicing
-        elit. Nostrum impedit laudantium dolores mollitia, obcaecati quia
-        voluptatibus beatae fuga asperiores delectus totam eos nihil libero!
-        Eveniet vel aliquid soluta reprehenderit ipsam. sdjhkafj dskfj dsaj
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum
-        impedit laudantium dolores mollitia, obcaecati quia voluptatibus beatae
-        fuga asperiores delectus totam eos nihil libero! Eveniet vel aliquid
-        soluta reprehenderit ipsam.
-      </p>
+      <h3 className="">{post?.post?.title} </h3>
+      <h4 className="">{post?.post?.subtitle} </h4>
+      <p className="">{post?.post?.content}</p>
     </>
   );
 };
