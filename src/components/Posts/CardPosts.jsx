@@ -2,7 +2,7 @@ import { Button, Card, ListGroup } from "react-bootstrap";
 import { useDataById } from "../../helpers/useDataById";
 import { Avatar } from "../Avatar";
 
-export const CardPosts = ({ title, idUser, dateCreated }) => {
+export const CardPosts = ({ title, idUser, createdDate }) => {
   const { user } = useDataById(idUser);
   const { username } = user;
 
@@ -19,7 +19,7 @@ export const CardPosts = ({ title, idUser, dateCreated }) => {
         </ListGroup.Item>
       </ListGroup>
       <Card.Footer>
-        <small className="text-muted">{dateCreated}</small>
+        <small className="text-muted">{createdDate}</small>
         {/* <small className="text-muted">Last updated 3 mins ago</small> */}
       </Card.Footer>
     </Card>

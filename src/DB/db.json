@@ -3,92 +3,21 @@
     {
       "fullname": "Pablo Lopez",
       "email": "pablo@gmail.com",
-      "dateOfBirth": "1996-03-02",
+      "dateOfBirth": "1978-02-07",
       "username": "Pablo Lopez",
       "password": "123",
+      "registerDate": "Thu, 08 Sep 2022 01:15:39 GMT",
       "id": 1
-    },
-    {
-      "fullname": "Jorge Ramirez",
-      "email": "jorge@gmail.com",
-      "dateOfBirth": "2003-04-09",
-      "username": "Jorge R",
-      "password": "123",
-      "id": 2
-    },
-    {
-      "fullname": "Javier Peña",
-      "email": "javier@gmail.com",
-      "dateOfBirth": "0324-03-02",
-      "username": "Javier P ",
-      "password": "123",
-      "id": 3
-    },
-    {
-      "fullname": "Luis Moncada",
-      "email": "liusRoa@gmail.com",
-      "dateOfBirth": "0654-02-06",
-      "username": "LUIS",
-      "password": "1",
-      "id": 4
-    },
-    {
-      "fullname": "soy yo",
-      "email": "soyyyo@hgjkl.jkl",
-      "dateOfBirth": "0072-02-16",
-      "username": "fghjasdkjh",
-      "password": "123",
-      "id": 5
-    },
-    {
-      "fullname": "este",
-      "email": "este@ghjk.ghjk",
-      "dateOfBirth": "0656-02-07",
-      "username": "tqywuiklm",
-      "password": "123",
-      "id": 6
-    },
-    {
-      "fullname": "fernanda roa",
-      "email": "fernanda@gmail.com",
-      "dateOfBirth": "1999-06-27",
-      "username": "Fernanda",
-      "password": "123",
-      "id": 7
     }
   ],
   "posts": [
     {
-      "title": "Post de prueba",
-      "subtitle": "post",
-      "content": "probando...",
-      "dateCreated": "Wed, 07 Sep 2022 16:20:10 GMT",
+      "title": "Primer post creado",
+      "subtitle": "Este es el primero",
+      "content": "post nuevo",
+      "createdDate": "Thu, 08 Sep 2022 01:16:46 GMT",
       "idUser": 1,
       "id": 1
-    },
-    {
-      "title": "prueba de jorge",
-      "subtitle": "post ",
-      "content": "prueba 2",
-      "dateCreated": "Wed, 07 Sep 2022 16:22:01 GMT",
-      "idUser": 2,
-      "id": 2
-    },
-    {
-      "title": "My post",
-      "subtitle": "Este post es de javieer ",
-      "content": "Probando",
-      "dateCreated": "Wed, 07 Sep 2022 20:27:13 GMT",
-      "idUser": 3,
-      "id": 3
-    },
-    {
-      "title": "fghj",
-      "subtitle": "fghjk",
-      "content": "gfhjk",
-      "dateCreated": "Wed, 07 Sep 2022 21:17:17 GMT",
-      "idUser": 1,
-      "id": 4
     }
   ],
   "comments": [
@@ -103,30 +32,6 @@
       "username": "Pablo Lopez",
       "idPost": "undefined",
       "id": 2
-    },
-    {
-      "comment": "bn",
-      "username": "Jorge R",
-      "idPost": "undefined",
-      "id": 3
-    },
-    {
-      "comment": "hola",
-      "username": "Javier P ",
-      "idPost": "undefined",
-      "id": 4
-    },
-    {
-      "comment": "soy javier",
-      "username": "Javier P ",
-      "idPost": "undefined",
-      "id": 5
-    },
-    {
-      "comment": "hola",
-      "username": "Jorge R",
-      "idPost": "undefined",
-      "id": 6
     }
   ]
 }

@@ -22,24 +22,18 @@ export const FormRegister = () => {
     if (emailValid.length !== 0)
       return console.log("otro usuario existe con ese email");
 
-    const res = await axios.post("http://localhost:3002/users", value);
-    // console.log("DATA", dat.data);
-    // const res = await axios.get("http://localhost:3002/users");
-    // console.log("DATA2", res.data);
+    const time = Date.now();
+    const now = new Date(time).toUTCString();
+    value.registerDate = now;
 
-    // const user = res.data.filter((user) => user.email === value.email);
+    const res = await axios.post("http://localhost:3002/users", value);
+
     localStorage.setItem("userAuth", JSON.stringify(res.data));
 
     reset();
-    // console.log(userAuth?.id);
-    // setUserAuth(user[0]);
-    // console.log(userAuth)
     navigate(`/profile/${res.data.id}`, { replace: true });
     setAuth(true);
     setUpdateData(!updateData);
-
-    // setAuth(true);
-    // navigate("/profile/32", { replace: true });
   };
 
   // const validarUser = (value) => {
@@ -87,24 +81,6 @@ export const FormRegister = () => {
           />
           {errors.email?.type === "required" && "Email is required"}
         </FloatingLabel>
-
-        {/* <FloatingLabel
-          controlId="floatingInput"
-          label="Date of birth"
-          className="mb-3"
-        >
-          <Form.Control
-            type="date"
-            placeholder="Your Name"
-            {...register("username", { required: true })}
-          />
-          {errors.username?.type === "required" && "Username is required"}
-        </FloatingLabel> */}
-        {/* 
-        <div className="mb-3">
-          
-          <Form.Control type="date"></Form.Control>
-        </div> */}
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label className="mx-3">Date of birth</Form.Label>

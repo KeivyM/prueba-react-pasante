@@ -23,7 +23,7 @@ export const FormCreatePost = () => {
   const createPost = async (value) => {
     const time = Date.now();
     const now = new Date(time).toUTCString();
-    value.dateCreated = now;
+    value.createdDate = now;
     value.idUser = userAuth.id;
     console.log("aqui", userAuth.id);
 
