@@ -1,20 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context";
-// import { useDataById } from "../helpers/useDataById";
+import { useDataById } from "../helpers/useDataById";
 
 export const ProfilePage = () => {
   const { userAuth, setAuth } = useContext(AuthContext);
-  const { username } = userAuth;
-  let navigate = useNavigate();
-  // let { id } = useParams();
-  // console.log(Number(id));
-
-  // const { user } = useDataById(Number(id));
+  let { id } = useParams();
+  const { user } = useDataById(Number(id));
   // console.log(user);
+  // debugger;
+  const [usuario, setUsuario] = useState(user);
+  // console.log("usuarioooo", usuario);
+  // useEffect(() => {
+  //   setUsuario(user);
+  // }, [user]);
 
-  // const { username } = user;
+  let navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("userAuth");
@@ -56,7 +58,7 @@ export const ProfilePage = () => {
             position: "relative",
           }}
         >
-          <Card.Title className="">{username}</Card.Title>
+          <Card.Title className="">{user[0]?.username}</Card.Title>
           <Card.Subtitle className="mt-2">Web Designer</Card.Subtitle>
           <Card.Text className="mt-3 fst-italic">
             Some quick example text to build on the card title and make.

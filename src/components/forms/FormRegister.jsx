@@ -7,7 +7,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const FormRegister = () => {
   let navigate = useNavigate();
-  const { users, setAuth, updateData, setUpdateData } = useContext(AuthContext);
+  const { users, setAuth, userAuth, updateData, setUserAuth, setUpdateData } =
+    useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -16,22 +18,25 @@ export const FormRegister = () => {
   } = useForm();
 
   const createUser = async (value) => {
-    setUpdateData(!updateData);
-
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length !== 0)
       return console.log("otro usuario existe con ese email");
 
-    await axios.post("http://localhost:3002/users", value);
+    const res = await axios.post("http://localhost:3002/users", value);
+    // console.log("DATA", dat.data);
+    // const res = await axios.get("http://localhost:3002/users");
+    // console.log("DATA2", res.data);
 
-    const us = await axios.get("http://localhost:3002/users");
+    // const user = res.data.filter((user) => user.email === value.email);
+    localStorage.setItem("userAuth", JSON.stringify(res.data));
 
-    const u = us.data.filter((user) => user.email === value.email);
-    localStorage.setItem("userAuth", JSON.stringify(u[0]));
     reset();
+    // console.log(userAuth?.id);
+    // setUserAuth(user[0]);
+    // console.log(userAuth)
+    navigate(`/profile/${res.data.id}`, { replace: true });
     setAuth(true);
     setUpdateData(!updateData);
-    navigate("/profile/32", { replace: true });
 
     // setAuth(true);
     // navigate("/profile/32", { replace: true });

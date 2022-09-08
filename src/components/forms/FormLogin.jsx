@@ -16,7 +16,7 @@ export const FormLogin = () => {
   } = useForm();
 
   const validarUser = (value) => {
-    console.log("aeuii", userAuth);
+    // console.log("aeuii", userAuth);
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length === 0) return console.log("correo incorrecto");
 
@@ -25,7 +25,7 @@ export const FormLogin = () => {
     if (!passwordValid) return console.log("contraseña incorrecta");
 
     localStorage.setItem("userAuth", JSON.stringify(...emailValid));
-    console.log(...emailValid);
+    // console.log(...emailValid);
     setUserAuth(...emailValid);
     setAuth(true);
     reset();

@@ -12,12 +12,16 @@ import {
 } from "../pages";
 
 export const AppRoutes = () => {
-  const { auth } = useContext(AuthContext);
+  const { auth, userAuth } = useContext(AuthContext);
+  // console.log("ROUTES", userAuth?.id);
   return (
     <Routes>
       {!!auth ? (
         <>
-          <Route path="/" element={<Navigate to={`/profile/23`} />} />
+          <Route
+            path="/"
+            element={<Navigate to={`/profile/${userAuth?.id}`} />}
+          />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/post" element={<PostPage />} />
           <Route path="/posts" element={<PostsPage />} />
