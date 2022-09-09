@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext, PostsContext } from "../../context";
 
 export const FormCreatePost = () => {
-  const { users, userAuth } = useContext(AuthContext);
+  const { userAuth } = useContext(AuthContext);
   const { updatePosts, setUpdatePosts } = useContext(PostsContext);
-  // console.log(userAuth.id);
-  // const { debo recibir del contexto de auth el id del usuario para cuando cree un post pasarle el id en el atributo idUser } = useContext(PostsContext);
-  // debo guardar el usuario autenticado en localstorage y cuando cree un post o un comentario de alli obtengo el id para el idUser
+
   let navigate = useNavigate();
 
   const {
@@ -62,44 +60,6 @@ export const FormCreatePost = () => {
         />
         {errors.content?.type === "required" && "Content is required"}
       </Form.Group>
-
-      {/* <Form.Group className="mb-3" controlId="formGroupEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            name="email"
-            // type="email"
-            as="textarea"
-            placeholder="Enter email"
-            {...register("email", { required: true })}
-          />
-          {errors.email?.type === "required" && "Email is required"}
-        </Form.Group> */}
-      {/* 
-        <Form.Group className="mb-3" controlId="formGroupUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            name="userName"
-            type="text"
-            placeholder="Enter Username"
-            {...register("username", { required: true })}
-          />
-          {errors.username?.type === "required" && "Username is required"}
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            name="password"
-            type="password"
-            placeholder="Password"
-            {...register("password", {
-              required: true,
-              minLength: 8,
-              pattern: /[A-Za-z]{3}/,
-            })}
-          />
-          {errors.password?.type === "required" && "Password is required"}
-        </Form.Group> */}
       <Button className="w-50 d-block mx-auto" variant="primary" type="submit">
         Create
       </Button>

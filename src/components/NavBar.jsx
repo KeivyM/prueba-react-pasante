@@ -1,8 +1,19 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context";
 import { Avatar } from "./Avatar";
 
 export const NavBar = () => {
+  const { userAuth, setAuth } = useContext(AuthContext);
+
+  let navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("userAuth");
+    setAuth(false);
+    navigate("/");
+  };
   return (
     <Navbar bg="dark" variant="light">
       <Container>
@@ -19,6 +30,7 @@ export const NavBar = () => {
             New Post
           </Link>
         </Nav>
+        <Button onClick={logout}>Logout</Button>
       </Container>
     </Navbar>
   );

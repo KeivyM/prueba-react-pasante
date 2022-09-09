@@ -1,24 +1,13 @@
-import { useContext } from "react";
-import { Button, Card } from "react-bootstrap";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-
-import { AuthContext } from "../context";
+import { Card } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { useUserById } from "../hooks/useUserById";
 import { NotFoundPage } from "./NotFoundPage";
 
 export const ProfilePage = () => {
-  const { userAuth, setAuth } = useContext(AuthContext);
   let { id } = useParams();
-  // console.log(id);
-  const { user } = useUserById(Number(id));
-  // console.log(user.length);
-  let navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("userAuth");
-    setAuth(false);
-    navigate("/");
-  };
+  const { user } = useUserById(Number(id));
+
   return (
     <>
       {/* {user.length != 0 ? ( */}
@@ -30,7 +19,6 @@ export const ProfilePage = () => {
           minWidth: "1000px",
         }}
       >
-        <Button onClick={logout}>Logout</Button>
         <Card
           style={{
             background: "#eee",

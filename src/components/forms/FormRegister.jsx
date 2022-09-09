@@ -4,22 +4,55 @@ import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+YupPassword(yup);
+const requireField = () => yup.string().required("Password is required");
+
+const schema = yup
+  .object({
+    fullname: yup.string().required("This field is required"),
+    email: yup
+      .string()
+      .email("Email must be a valid email")
+      .required("Email is required"),
+    dateOfBirth: yup.string().typeError("este es el error").required(),
+    // .typeError("hola")
+    username: yup.string().required("Username is required"),
+    password: requireField()
+      .min(8, "The password must be at least 8 characters")
+      .minLowercase(1, "debe tener 1 minusculas")
+      .minUppercase(1, "letra mayuscula")
+      .minNumbers(1, "debe tener 1 numero")
+      .minSymbols(1, "debe tener 1 caracter especial"),
+    passwordRepeat: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "no coinciden")
+      .required("Password is required"),
+  })
+  .required()
+  .strict();
 
 export const FormRegister = ({ setShow }) => {
   const [showPassword, setPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  let navigate = useNavigate();
   const { users, setAuth, updateData, setUpdateData } = useContext(AuthContext);
+  let navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const createUser = async (value) => {
-    const emailValid = users.filter((user) => user.email === value.email);
+  const createUser = async (newUser) => {
+    console.log(newUser);
+    const emailValid = users.filter((user) => user.email === newUser.email);
+
     if (emailValid.length !== 0)
       return setShow([
         true,
@@ -28,9 +61,9 @@ export const FormRegister = ({ setShow }) => {
 
     const time = Date.now();
     const now = new Date(time).toUTCString();
-    value.registerDate = now;
+    newUser.registerDate = now;
 
-    const res = await axios.post("http://localhost:3002/users", value);
+    const res = await axios.post("http://localhost:3002/users", newUser);
 
     localStorage.setItem("userAuth", JSON.stringify(res.data));
 
@@ -40,18 +73,6 @@ export const FormRegister = ({ setShow }) => {
     setUpdateData(!updateData);
   };
 
-  // const validarUser = (value) => {
-  //   const emailValid = users.filter((user) => user.email === value.email);
-  //   if (emailValid.length === 0) return;
-
-  //   const passwordValid = emailValid[0].password === value.password;
-  //   if (passwordValid) {
-  //     localStorage.setItem("userAuth", JSON.stringify(...emailValid));
-  //     setAuth(true);
-  //   }
-  //   navigate("/profile/32", { replace: true });
-  // };
-
   return (
     <div
       className="container-sm p-5 pb-4"
@@ -60,89 +81,69 @@ export const FormRegister = ({ setShow }) => {
       <h2 className="text-center">Register</h2>
 
       <Form onSubmit={handleSubmit(createUser)}>
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Full Name"
-          className="mb-3"
-        >
+        <FloatingLabel label="Full Name" className="mb-3">
           <Form.Control
             type="text"
             placeholder="Your Name"
             {...register("fullname", { required: true })}
           />
-          {errors.fullname?.type === "required" && "Full Name is required"}
+          {errors.fullname?.message}
         </FloatingLabel>
 
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Email address"
-          className="mb-3"
-        >
+        <FloatingLabel label="Email address" className="mb-3">
           <Form.Control
             type="email"
             placeholder="name@example.com"
             {...register("email", { required: true })}
           />
-          {errors.email?.type === "required" && "Email is required"}
+          {errors.email?.message}
         </FloatingLabel>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label className="mx-3">Date of birth</Form.Label>
           <Form.Control
             type="date"
-            placeholder="Enter email"
             {...register("dateOfBirth", { required: true })}
           />
-          {errors.dateOfBirth?.type === "required" && "Date is required"}
+          {/* {errors.dateOfBirth?.type === "required" && "Date is required"} */}
+          {errors.dateOfBirth?.message}
         </Form.Group>
 
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Username"
-          className="mb-3"
-        >
+        <FloatingLabel label="Username" className="mb-3">
           <Form.Control
             type="text"
             placeholder="Your Name"
             {...register("username", { required: true })}
           />
-          {errors.username?.type === "required" && "Username is required"}
+          {errors.username?.message}
         </FloatingLabel>
 
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Password"
-          className="mb-3"
-        >
+        <FloatingLabel label="Password" className="mb-3">
           <Form.Control
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             {...register("password", { required: true })}
           />
+          {errors.password?.message}
           <Form.Check
             onClick={() => setPassword(!showPassword)}
             type="checkbox"
             label="Show Password"
           />
-          {errors.password?.type === "required" && "Password is required"}
         </FloatingLabel>
 
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Repeat Password"
-          className="mb-3"
-        >
+        <FloatingLabel label="Repeat Password" className="mb-3">
           <Form.Control
             type={showPasswordRepeat ? "text" : "password"}
             placeholder="Password"
-            // {...register("repeatPassword", { required: true })}
+            {...register("passwordRepeat", { required: true })}
           />
+          {errors.passwordRepeat?.message}
           <Form.Check
             onClick={() => setShowPasswordRepeat(!showPasswordRepeat)}
             type="checkbox"
             label="Show Password"
           />
-          {/* {errors.repeatPassword?.type === "required" && "Password is required"} */}
         </FloatingLabel>
 
         <Button
@@ -164,5 +165,3 @@ export const FormRegister = ({ setShow }) => {
     </div>
   );
 };
-
-// export default FormRegister;
