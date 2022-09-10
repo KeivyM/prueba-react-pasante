@@ -8,7 +8,7 @@ export const RegisterPage = () => {
   return (
     <div
       className="container-fluid d-flex align-items-center"
-      style={{ height: "100vh" }}
+      style={{ height: "100vh", background: "rgb(165 234 255)" }}
     >
       <AuthFailed show={show} setShow={setShow} />
 

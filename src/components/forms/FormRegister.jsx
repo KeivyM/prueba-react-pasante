@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(yup);
+
 const requireField = () => yup.string().required("Password is required");
 
 const schema = yup
@@ -17,18 +18,17 @@ const schema = yup
       .string()
       .email("Email must be a valid email")
       .required("Email is required"),
-    dateOfBirth: yup.string().typeError("este es el error").required(),
-    // .typeError("hola")
+    birthdate: yup.string().required("Date is required"),
     username: yup.string().required("Username is required"),
     password: requireField()
       .min(8, "The password must be at least 8 characters")
-      .minLowercase(1, "debe tener 1 minusculas")
-      .minUppercase(1, "letra mayuscula")
-      .minNumbers(1, "debe tener 1 numero")
-      .minSymbols(1, "debe tener 1 caracter especial"),
+      .minLowercase(1, "Must have 1 lowercase letter")
+      .minUppercase(1, "Must have 1 uppercase letter")
+      .minNumbers(1, "Must have 1 number")
+      .minSymbols(1, "Must have 1 special character"),
     passwordRepeat: yup
       .string()
-      .oneOf([yup.ref("password"), null], "no coinciden")
+      .oneOf([yup.ref("password"), null], "Incorrect password")
       .required("Password is required"),
   })
   .required()
@@ -76,7 +76,11 @@ export const FormRegister = ({ setShow }) => {
   return (
     <div
       className="container-sm p-5 pb-4"
-      style={{ background: "#ddd", maxWidth: "600px" }}
+      style={{
+        background: "#ddd",
+        maxWidth: "600px",
+        boxShadow: "0 0 6px -2px brown",
+      }}
     >
       <h2 className="text-center">Register</h2>
 
@@ -99,14 +103,16 @@ export const FormRegister = ({ setShow }) => {
           {errors.email?.message}
         </FloatingLabel>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label className="mx-3">Date of birth</Form.Label>
+        <Form.Group
+          className="mb-3 d-flex text-center align-items-end "
+          controlId="formBasicEmail"
+        >
+          <Form.Label className="mx-0 col-3">Date of birth:</Form.Label>
           <Form.Control
             type="date"
-            {...register("dateOfBirth", { required: true })}
+            {...register("birthdate", { required: true })}
           />
-          {/* {errors.dateOfBirth?.type === "required" && "Date is required"} */}
-          {errors.dateOfBirth?.message}
+          {errors.birthdate?.message}
         </Form.Group>
 
         <FloatingLabel label="Username" className="mb-3">

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useContext } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -5,9 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 export const FormLogin = ({ setShow }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const { users, setAuth, setUserAuth } = useContext(AuthContext);
+  const { setAuth, setUserAuth } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -17,7 +18,11 @@ export const FormLogin = ({ setShow }) => {
 
   const [revealed, setRevealed] = useState(false);
 
-  const validarUser = (value) => {
+  const validateUser = async (value) => {
+    const users = await axios
+      .get("http://localhost:3002/users")
+      .then((res) => res.data);
+
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length === 0)
       return setShow([true, "Incorrect email, please check it."]);
@@ -42,15 +47,15 @@ export const FormLogin = ({ setShow }) => {
   return (
     <div
       className="container-sm p-5 pb-4"
-      style={{ background: "#ddd", maxWidth: "600px" }}
+      style={{
+        background: "#ddd",
+        maxWidth: "600px",
+        boxShadow: "0 0 6px -2px brown",
+      }}
     >
       <h2 className="text-center">Login</h2>
-      <Form onSubmit={handleSubmit(validarUser)}>
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Email address"
-          className="mb-3"
-        >
+      <Form onSubmit={handleSubmit(validateUser)}>
+        <FloatingLabel label="Email address" className="mb-3">
           <Form.Control
             type="email"
             placeholder="name@example.com"
@@ -59,11 +64,7 @@ export const FormLogin = ({ setShow }) => {
           {errors.email?.type === "required" && "Email is required"}
         </FloatingLabel>
 
-        <FloatingLabel
-          // controlId="floatingInput"
-          label="Password"
-          className="mb-3"
-        >
+        <FloatingLabel label="Password" className="mb-3">
           <Form.Control
             type={revealed ? "text" : "password"}
             placeholder="Password"
@@ -74,7 +75,6 @@ export const FormLogin = ({ setShow }) => {
             type="checkbox"
             label="Show Password"
           />
-          {/* <Button onClick={handleReveal}>Show Password</Button> */}
           {errors.password?.type === "required" && "Password is required"}
         </FloatingLabel>
 

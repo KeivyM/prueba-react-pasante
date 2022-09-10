@@ -1,16 +1,51 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { CardPosts } from "../components/Posts";
-import { PostsContext } from "../context";
-import { items } from "../helpers/ItemsPagination";
 
 export const PostsPage = () => {
-  const { posts } = useContext(PostsContext);
-  // console.log(posts);
-  const array = [1, 2, 3, 4, 5];
+  const [active, setActive] = useState(1);
+  const [posteos, setPosteos] = useState([]);
+  const [pag, setPag] = useState(1);
+
+  const myFuncion = async () => {
+    await axios
+      .get(`http://localhost:3002/posts?_page=${active}&_limit=5`)
+      .then((res) => {
+        setPosteos(res.data);
+      });
+  };
+
+  useEffect(() => {
+    myFuncion();
+  }, [active]);
+
+  const paginas = async () => {
+    await axios.get(`http://localhost:3002/posts`).then((res) => {
+      setPag(res.data.length);
+    });
+  };
+
+  useEffect(() => {
+    paginas();
+  }, []);
+
+  let items = [];
+  for (let number = 1; number <= Math.ceil(pag / 5); number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        onClick={() => setActive(number)}
+        active={number === active}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <div
-      className="container-xl px-5 text-center"
+      className="container-fluid px-5 text-center"
       style={{
         background: "#ddd",
         height: "calc(100vh - 58px)",
@@ -32,7 +67,7 @@ export const PostsPage = () => {
           gap: "10px",
         }}
       >
-        {posts.map((post, index) => (
+        {posteos.map((post, index) => (
           <CardPosts key={index} {...post} />
         ))}
       </div>

@@ -3,7 +3,7 @@
     {
       "fullname": "Pablo Lopez",
       "email": "pablo@gmail.com",
-      "dateOfBirth": "1978-02-07",
+      "birthdate": "1978-02-07",
       "username": "Pablo Lopez",
       "password": "123",
       "registerDate": "Thu, 08 Sep 2022 01:15:39 GMT",
@@ -12,7 +12,7 @@
     {
       "fullname": "andres",
       "email": "andres@gmail.com",
-      "dateOfBirth": "0232-12-23",
+      "birthdate": "0232-12-23",
       "username": "andres m",
       "password": "123",
       "registerDate": "Thu, 08 Sep 2022 15:06:43 GMT",
@@ -21,7 +21,7 @@
     {
       "fullname": "Leandro Villa",
       "email": "leandro@gmil.com",
-      "dateOfBirth": "0545-05-04",
+      "birthdate": "0545-05-04",
       "username": "Leandro Villa",
       "password": "123",
       "registerDate": "Thu, 08 Sep 2022 15:29:30 GMT",
@@ -30,46 +30,30 @@
   ],
   "posts": [
     {
-      "title": "Primer post creado",
-      "subtitle": "Este es el primero",
-      "content": "post nuevo",
-      "createdDate": "Thu, 08 Sep 2022 01:16:46 GMT",
-      "idUser": 1,
+      "title": "Esta nueva noticia es Importante!!",
+      "subtitle": "News",
+      "content": "Noticias nuevas",
+      "createdDate": "Sat, 10 Sep 2022 00:34:46 GMT",
+      "usersId": 3,
       "id": 1
     },
     {
-      "title": "post segundo por mi",
-      "subtitle": "segundo",
-      "content": "dhsjgkhadsj;ad",
-      "createdDate": "Thu, 08 Sep 2022 16:39:31 GMT",
-      "idUser": 3,
+      "title": "Siganme en Youtube",
+      "subtitle": "Y en Instagram",
+      "content": "https://www.youtube.com",
+      "createdDate": "Sat, 10 Sep 2022 00:40:26 GMT",
+      "usersId": 1,
       "id": 2
     }
   ],
   "comments": [
     {
-      "comment": "hola",
-      "username": "andres m",
-      "idPost": 1,
-      "idUser": 2,
-      "createdDate": "Thu, 08 Sep 2022 17:05:37 GMT",
+      "comment": "Cual es la noticia??? 🤔",
+      "username": "Pablo Lopez",
+      "postsId": 1,
+      "usersId": 1,
+      "createdDate": "Sat, 10 Sep 2022 00:51:38 GMT",
       "id": 1
-    },
-    {
-      "comment": "yo comento...",
-      "username": "andres m",
-      "idPost": 2,
-      "idUser": 2,
-      "createdDate": "Thu, 08 Sep 2022 17:05:48 GMT",
-      "id": 2
-    },
-    {
-      "comment": "yo tambien",
-      "username": "Leandro Villa",
-      "idPost": 2,
-      "idUser": 3,
-      "createdDate": "Thu, 08 Sep 2022 17:06:56 GMT",
-      "id": 3
     }
   ]
 }

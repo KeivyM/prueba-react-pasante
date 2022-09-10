@@ -1,29 +1,22 @@
 import axios from "axios";
 import { useContext } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
-import { CommentsContex } from "../../context/CommentsContext";
 import { Avatar } from "../Avatar";
 
-export const AddComment = (idPost) => {
+export const AddComment = ({ postsId, setUpdate, update }) => {
   const { userAuth } = useContext(AuthContext);
-  const { updateComments, setUpdateComments } = useContext(CommentsContex);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const sendComment = async (value) => {
     if (value.comment.trim().length < 1) return;
 
     value.comment = value.comment.trim();
     value.username = userAuth.username;
-    value.idPost = idPost.idPost;
-    value.idUser = userAuth.id;
+    value.postsId = postsId;
+    value.usersId = userAuth.id;
 
     const time = Date.now();
     const now = new Date(time).toUTCString();
@@ -31,7 +24,7 @@ export const AddComment = (idPost) => {
 
     await axios.post("http://localhost:3002/comments", value);
     reset();
-    setUpdateComments(!updateComments);
+    setUpdate(!update);
   };
 
   return (

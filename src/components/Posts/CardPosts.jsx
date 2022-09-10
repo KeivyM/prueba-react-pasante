@@ -1,12 +1,12 @@
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserById } from "../../hooks/useUserById";
 import { Avatar } from "../Avatar";
 
-export const CardPosts = ({ title, idUser, createdDate, id }) => {
+export const CardPosts = ({ title, usersId, createdDate, id }) => {
   let navigate = useNavigate();
-  const { user } = useUserById(idUser);
-  const { username } = user;
+  const { user } = useUserById(usersId);
+  // const { username } = user;
 
   const moreDetails = () => {
     navigate(`${id}`);

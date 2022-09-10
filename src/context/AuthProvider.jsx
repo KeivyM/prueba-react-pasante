@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 
-const url = "http://localhost:3002/users";
-
 export const AuthProvider = ({ children }) => {
   const [userAuth, setUserAuth] = useState(() => {
     const data = localStorage.getItem("userAuth");
@@ -22,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     //obtiene los usuarios del jsonserver
-    axios.get(url).then((res) => {
+    axios.get("http://localhost:3002/users").then((res) => {
       setUsers(res.data);
     });
   }, [auth]);

@@ -5,7 +5,7 @@ import { AuthContext } from "../context";
 import { Avatar } from "./Avatar";
 
 export const NavBar = () => {
-  const { userAuth, setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   let navigate = useNavigate();
 
