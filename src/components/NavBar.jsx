@@ -6,7 +6,6 @@ import { Avatar } from "./Avatar";
 
 export const NavBar = () => {
   const { setAuth } = useContext(AuthContext);
-
   let navigate = useNavigate();
 
   const logout = () => {
@@ -14,23 +13,24 @@ export const NavBar = () => {
     setAuth(false);
     navigate("/");
   };
+
   return (
-    <Navbar bg="dark" variant="light">
+    <Navbar className="navbar-custom">
       <Container>
         <Navbar.Brand>
-          <Link className="text-decoration-none" to="/">
+          <Link className="text-decoration-none link-menu-custom" to="/">
             <Avatar size={28} /> <span className="mx-1">Profile</span>
           </Link>
         </Navbar.Brand>
         <Nav className="me-auto d-flex gap-3 justify-content-end">
-          <Link className="text-decoration-none" to="/posts">
+          <Link className="text-decoration-none link-menu-custom" to="/posts">
             Posts
           </Link>
-          <Link className="text-decoration-none" to="/post">
+          <Link className="text-decoration-none link-menu-custom" to="/post">
             New Post
           </Link>
         </Nav>
-        <Button onClick={logout}>
+        <Button className="buttons-custom" onClick={logout}>
           Logout<i className="fa-solid fa-right-from-bracket mx-2"></i>
         </Button>
       </Container>

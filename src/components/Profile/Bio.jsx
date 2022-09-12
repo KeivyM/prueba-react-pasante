@@ -3,8 +3,11 @@ import { Card } from "react-bootstrap";
 export const Bio = () => {
   return (
     <Card
-      className="w-100"
-      style={{ background: "#eee", height: "40%", fontSize: ".9rem" }}
+      className="w-100 section-bio-custom"
+      style={{
+        height: "40%",
+        overflow: "auto",
+      }}
     >
       <Card.Body>
         <Card.Title>Bio</Card.Title>

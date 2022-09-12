@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Loading } from "../components/Loading";
 import {
   Bio,
   Frustrations,
@@ -18,66 +19,50 @@ export const ProfilePage = () => {
   const [userValid, setUserValid] = useState(null);
   const { id } = useParams();
 
-  const validateUser = async () => {
-    try {
-      await axios.get(`http://localhost:3002/users/${id}`).then((res) => {
-        setUser(res.data);
-        setUserValid(true);
-        setLoading("loaded");
-      });
-    } catch (error) {
-      setUserValid(false);
-      setLoading("loaded");
-    }
-  };
+  const validateUser = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/users/${id}`)
+        .then((res) => {
+          setUser(res.data);
+          setUserValid(true);
+          setLoading("loaded");
+        })
+        .catch((error) => {
+          setUserValid(false);
+          setLoading("loaded");
+        });
+    },
+    [id]
+  );
 
   useEffect(() => {
     validateUser();
-  }, [id]);
+  }, [validateUser, id]);
 
   return (
     <>
       {loading === "loading" ? (
-        <h2>cargando...</h2>
+        <Loading />
       ) : userValid ? (
         <div
-          className="container-fluid py-2"
-          style={{
-            background: "rgb(234, 207, 255)",
-            height: "calc(100vh - 58px)",
-            // minWidth: "1000px",
-          }}
+          className="container-fluid py-2 page-profile-custom"
+          style={
+            {
+              // background: "rgb(234, 207, 255)",
+              // height: "calc(100vh - 58px)",
+              // minWidth: "1000px",
+            }
+          }
         >
-          <div
-            className="container p-3 d-flex col-12 gap-3 "
-            style={{
-              background: "#fff",
-              boxShadow: "0px 0px 15px rgba(0,0,0,.5)",
-              height: "100%",
-              overflow: "hidden",
-              boxSizing: "border-box",
-              borderRadius: "20px",
-            }}
-          >
+          <div className="container p-3 d-flex rounded-4 col-12 gap-3 container-profile-custom">
             <PersonalInfo username={user.username} />
 
-            <div
-              className="container p-0 m-0  d-flex w-100 gap-3"
-              style={{
-                // background: "#c29",
-
-                position: "relative",
-                boxSizing: "border-box",
-              }}
-            >
+            <div className="container p-0 m-0  d-flex w-100 gap-3">
               <div
-                className="w-100 d-flex gap-3"
+                className="w-100 d-flex flex-wrap gap-3"
                 style={{
-                  // background: "blue",
                   height: "100%",
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  // gap: "1px",
                 }}
               >
                 <Bio />

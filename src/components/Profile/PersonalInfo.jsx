@@ -7,14 +7,13 @@ export const PersonalInfo = ({ username }) => {
         background: "#eee",
         padding: "10px",
         height: "100%",
-        float: "left",
       }}
-      className=" col-3 "
+      className="col-3"
     >
       <Card.Img
         variant="top"
         className="mx-auto mb-2 border border-5 rounded-circle"
-        style={{ width: "150px" }}
+        style={{ width: "60%" }}
         src={"https://assets.stickpng.com/images/585e4beacb11b227491c3399.png"}
       />
       <Card.Body
@@ -33,44 +32,24 @@ export const PersonalInfo = ({ username }) => {
           className="mt-3 p-4 mx-3 rounded-3"
           style={{ background: "pink" }}
         >
-          <strong>Age:</strong>
+          <strong>Age: </strong>
           <span>24</span>
           <br />
-          <strong>Status:</strong>
+          <strong>Status: </strong>
           <span>Single</span>
           <br />
-          <strong>Location:</strong>
+          <strong>Location: </strong>
           <span>Brooklyn</span>
           <br />
-          <div
+          <span
             className="d-flex gap-1 flex-wrap mt-2"
             style={{ fontSize: ".8rem" }}
           >
-            <span
-              className="p-1 rounded-2"
-              style={{ background: "#0a53be", color: "white" }}
-            >
-              Organized
-            </span>
-            <span
-              className="p-1 rounded-2"
-              style={{ background: "#0a53be", color: "white" }}
-            >
-              Protective
-            </span>
-            <span
-              className="p-1 rounded-2"
-              style={{ background: "#0a53be", color: "white" }}
-            >
-              Practical
-            </span>
-            <span
-              className="p-1 rounded-2"
-              style={{ background: "#0a53be", color: "white" }}
-            >
-              Puntual
-            </span>
-          </div>
+            <span className="p-1 rounded-2 text-style-botton">Organized</span>
+            <span className="p-1 rounded-2 text-style-botton">Protective</span>
+            <span className="p-1 rounded-2 text-style-botton">Practical</span>
+            <span className="p-1 rounded-2 text-style-botton">Puntual</span>
+          </span>
         </Card.Text>
       </Card.Body>
     </Card>

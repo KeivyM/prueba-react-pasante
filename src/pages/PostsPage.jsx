@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { CardPosts } from "../components/Posts";
@@ -8,17 +9,20 @@ export const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [pag, setPag] = useState(1);
 
-  const getPosts = async () => {
-    await axios
-      .get(`http://localhost:3002/posts?_page=${active}&_limit=5`)
-      .then((res) => {
-        setPosts(res.data);
-      });
-  };
+  const getPosts = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/posts?_page=${active}&_limit=5`)
+        .then((res) => {
+          setPosts(res.data);
+        });
+    },
+    [active]
+  );
 
   useEffect(() => {
     getPosts();
-  }, [active]);
+  }, [getPosts, active]);
 
   const paginas = async () => {
     await axios.get(`http://localhost:3002/posts`).then((res) => {
@@ -44,29 +48,21 @@ export const PostsPage = () => {
   }
 
   return (
-    <div
-      className="container-fluid px-5 text-center"
-      style={{
-        background: "rgb(234, 207, 255)",
-        height: "calc(100% - 58px)",
-        minHeight: "calc(100vh - 58px)",
-      }}
-    >
-      <h1 className="col-12 text-center py-2 m-0">Posts</h1>
-      <div
-        className="d-flex justify-content-center py-5 gap-3"
-        style={{
-          // background: "#ada",
-          height: "max-content",
-          flexWrap: "wrap",
-        }}
-      >
+    <div className="container-fluid px-5 text-center page-posts-custom">
+      <h1 className="col-12 text-center py-2 m-0 title-posts-custom">Posts</h1>
+      <div className="d-flex justify-content-center flex-wrap py-5 gap-3 container-post-custom">
         {posts.map((post, index) => (
           <CardPosts key={index} {...post} />
         ))}
       </div>
       <div className="container d-flex justify-content-center pt-2">
-        <Pagination style={{ bottom: "5%" }}>{items}</Pagination>
+        <Pagination
+          className="btns-pagination-custom"
+          id="btns-pagination-custom"
+          style={{ bottom: "5%" }}
+        >
+          {items}
+        </Pagination>
       </div>
     </div>
   );

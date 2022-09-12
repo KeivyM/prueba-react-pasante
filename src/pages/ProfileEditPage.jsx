@@ -1,5 +1,10 @@
 import React from "react";
+import { FormRegister } from "../components/forms/FormRegister";
 
 export const ProfileEditPage = () => {
-  return <div>ProfileEditPage</div>;
+  return (
+    <>
+      <FormRegister />
+    </>
+  );
 };

@@ -33,6 +33,7 @@ export const FormCreatePost = () => {
         <Form.Control
           type="text"
           placeholder="Title"
+          autoComplete="off"
           {...register("title", { required: true })}
         />
         {errors.title?.type === "required" && "Title is required"}
@@ -42,6 +43,7 @@ export const FormCreatePost = () => {
         <Form.Control
           type="text"
           placeholder="Subtitle"
+          autoComplete="off"
           {...register("subtitle", { required: true })}
         />
         {errors.subtitle?.type === "required" && "Subtitle is required"}
@@ -57,7 +59,11 @@ export const FormCreatePost = () => {
         {errors.content?.type === "required" && "Content is required"}
       </Form.Group>
 
-      <Button className="w-50 d-block mx-auto" variant="primary" type="submit">
+      <Button
+        className="w-50 d-block mx-auto buttons-custom"
+        variant="primary"
+        type="submit"
+      >
         Create
       </Button>
     </Form>

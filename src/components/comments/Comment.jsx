@@ -22,14 +22,7 @@ export const Comment = ({
   };
 
   return (
-    <div
-      className="container mb-3 p-2 position-relative"
-      style={{
-        background: "rgb(247, 255, 207)",
-        borderRadius: "10px",
-        border: "1px solid",
-      }}
-    >
+    <div className="container mb-3 p-2 position-relative rounded-3 one-comment-custom">
       <div className="mb-2">
         <strong>
           <Link className="text-decoration-none" to={`/profile/${usersId}`}>

@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AddComment, Comment } from "../components/comments";
+import { Loading } from "../components/Loading";
 import { Post } from "../components/Posts";
 import { NotFoundPage } from "./NotFoundPage";
 
@@ -14,65 +16,59 @@ export const PostsDetailsPage = () => {
   const [comments, setComments] = useState([]);
   let { id } = useParams();
 
-  const getPost = async () => {
-    try {
-      await axios.get(`http://localhost:3002/posts/${id}`).then((res) => {
-        setPost(res.data);
-        setPostValid(true);
-        setLoading("loaded");
-      });
-    } catch (error) {
-      // console.log(error);
-      setPostValid(false);
-      setLoading("loaded");
-    }
-  };
+  const getPost = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/posts/${id}`)
+        .then((res) => {
+          setPost(res.data);
+          setPostValid(true);
+          setLoading("loaded");
+        })
+        .catch((error) => {
+          setPostValid(false);
+          setLoading("loaded");
+        });
+    },
+    [id]
+  );
 
-  const getComments = async () => {
-    await axios
-      .get(`http://localhost:3002/comments?postsId=${id}`)
-      .then((res) => {
-        setComments(res.data);
-      });
-  };
+  const getComments = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/comments?postsId=${id}`)
+        .then((res) => {
+          setComments(res.data);
+        });
+    },
+    [id]
+  );
 
   useEffect(() => {
     getPost();
-  }, [id]);
+  }, [getPost, id]);
 
   useEffect(() => {
     getComments();
-  }, [post, update]);
+  }, [getComments, post, update]);
 
   return (
     <>
       {loading === "loading" ? (
-        <h2>Cargando...</h2>
+        <Loading />
       ) : postValid ? (
-        <div
-          className="container-xxl"
-          style={{
-            background: "rgb(234, 207, 255) none repeat scroll 0% 0%",
-            minHeight: "100vh",
-            height: "max-content",
-          }}
-        >
-          <h1 className="text-center pt-3">Post Details</h1>
-          <div
-            className="container w-75 p-5"
-            style={{
-              background: "rgb(118, 75, 133) none repeat scroll 0% 0%",
-              height: "max-content",
-            }}
-          >
+        <div className="container-xxl page-post-details-custom">
+          <h1 className="text-center pt-3 title-post-details-custom">
+            Post Details
+          </h1>
+          <div className="container w-75 p-5 container-post-details-custom">
             <Post post={post} />
             <hr />
 
-            <div
-              className="container p-4"
-              style={{ background: "#cdd", borderRadius: "10px" }}
-            >
-              <span className="d-block mb-3">Comments</span>
+            <div className="container p-4 rounded-3 container-comments-custom">
+              <span className="d-block mb-3 title-comments-custom">
+                Comments
+              </span>
 
               {comments.map((comment, index) => {
                 return (

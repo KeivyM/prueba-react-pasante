@@ -10,20 +10,20 @@
       "id": 1
     },
     {
-      "fullname": "andres",
+      "fullname": "Andres Toro",
       "email": "andres@gmail.com",
-      "birthdate": "0232-12-23",
-      "username": "andres m",
-      "password": "123",
+      "birthdate": "2003-02-07",
+      "username": "Andres Toro",
+      "password": "123qweASD.",
       "registerDate": "Thu, 08 Sep 2022 15:06:43 GMT",
       "id": 2
     },
     {
-      "fullname": "Leandro Villa",
+      "fullname": "Leandro Felipe Villa Altuve",
       "email": "leandro@gmil.com",
-      "birthdate": "0545-05-04",
+      "birthdate": "1998-04-05",
       "username": "Leandro Villa",
-      "password": "123",
+      "password": "123qweASD.",
       "registerDate": "Thu, 08 Sep 2022 15:29:30 GMT",
       "id": 3
     }
@@ -36,22 +36,6 @@
       "createdDate": "Sat, 10 Sep 2022 00:34:46 GMT",
       "usersId": 3,
       "id": 1
-    },
-    {
-      "title": "Siganme en Yout",
-      "subtitle": "Y en Instagram",
-      "content": "https://www.youtube.com/dhb43dDF",
-      "createdDate": "Sat, 10 Sep 2022 00:40:26 GMT",
-      "usersId": 1,
-      "id": 2
-    },
-    {
-      "title": "que",
-      "subtitle": "como",
-      "content": "ghjk",
-      "createdDate": "Mon, 12 Sep 2022 15:11:04 GMT",
-      "usersId": 1,
-      "id": 3
     }
   ],
   "comments": [
@@ -70,22 +54,6 @@
       "usersId": 3,
       "createdDate": "Sun, 11 Sep 2022 01:16:26 GMT",
       "id": 2
-    },
-    {
-      "comment": "DIME YAAAA",
-      "username": "Pablo Lopez",
-      "postsId": 1,
-      "usersId": 1,
-      "createdDate": "Sat, 10 Sep 2022 11:10:46 GMT",
-      "id": 3
-    },
-    {
-      "comment": "hola",
-      "username": "Pablo Lopez",
-      "postsId": 2,
-      "usersId": 1,
-      "createdDate": "Sat, 10 Sep 2022 04:26:34 GMT",
-      "id": 4
     }
   ]
 }

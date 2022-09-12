@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useMemo } from "react";
 import { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -9,13 +10,16 @@ export const MyPosts = ({ id }) => {
   const { userAuth } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
 
-  const getPosts = async () => {
-    await axios
-      .get(`http://localhost:3002/posts?usersId=${id}&_sort=id&_order=desc`)
-      .then((res) => {
-        setPosts(res.data);
-      });
-  };
+  const getPosts = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/posts?usersId=${id}&_sort=id&_order=desc`)
+        .then((res) => {
+          setPosts(res.data);
+        });
+    },
+    [id]
+  );
 
   const deletePost = async ({ id }) => {
     const confirm = window.confirm("You want to delete this post?");
@@ -27,7 +31,7 @@ export const MyPosts = ({ id }) => {
 
   useEffect(() => {
     getPosts();
-  }, [id]);
+  }, [getPosts, id]);
 
   return (
     <Card
@@ -57,16 +61,10 @@ export const MyPosts = ({ id }) => {
                 <Card.Text className="d-flex justify-content-around position-relative">
                   <span> {post.title}</span>-- <span>{post.createdDate}</span>{" "}
                   {userAuth.id === Number(id) && (
-                    // <span
-                    //   className="btn btn-danger p-2 py-0 position-relative"
-                    //   title="Delete"
-                    //   onClick={() => deletePost(post)}
-                    // >
-                    //   D
-                    // </span>
                     <i
                       className="fa-solid fa-trash"
                       title="Delete"
+                      style={{ cursor: "pointer" }}
                       onClick={() => deletePost(post)}
                     ></i>
                   )}

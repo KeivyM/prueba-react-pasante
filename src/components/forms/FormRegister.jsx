@@ -34,10 +34,30 @@ const schema = yup
   .required()
   .strict();
 
+const schemaUpdate = yup
+  .object({
+    fullname: yup.string().required("This field is required"),
+    birthdate: yup.string().required("Date is required"),
+    username: yup.string().required("Username is required"),
+    password: requireField()
+      .min(8, "The password must be at least 8 characters")
+      .minLowercase(1, "Must have 1 lowercase letter")
+      .minUppercase(1, "Must have 1 uppercase letter")
+      .minNumbers(1, "Must have 1 number")
+      .minSymbols(1, "Must have 1 special character"),
+    passwordRepeat: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Incorrect password")
+      .required("Password is required"),
+  })
+  .required()
+  .strict();
+
 export const FormRegister = ({ setShow }) => {
   const [showPassword, setPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  const { users, setAuth, updateData, setUpdateData } = useContext(AuthContext);
+  const { userAuth, users, setAuth, updateData, setUpdateData } =
+    useContext(AuthContext);
   let navigate = useNavigate();
 
   const {
@@ -46,7 +66,7 @@ export const FormRegister = ({ setShow }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(!!userAuth ? schemaUpdate : schema),
   });
 
   const createUser = async (newUser) => {
@@ -73,6 +93,21 @@ export const FormRegister = ({ setShow }) => {
     setUpdateData(!updateData);
   };
 
+  console.log(!!userAuth);
+  const updateDataProfile = async (data) => {
+    delete data.passwordRepeat;
+
+    const res = await axios.patch(
+      `http://localhost:3002/users/${userAuth.id}`,
+      data
+    );
+
+    localStorage.setItem("userAuth", JSON.stringify(res.data));
+
+    reset();
+    navigate(`/profile/${userAuth.id}`);
+  };
+
   return (
     <div
       className="container-sm p-5 pb-4"
@@ -82,9 +117,9 @@ export const FormRegister = ({ setShow }) => {
         boxShadow: "0 0 6px -2px brown",
       }}
     >
-      <h2 className="text-center">Register</h2>
+      <h2 className="text-center"> {!userAuth ? "Register" : "Update Data"}</h2>
 
-      <Form onSubmit={handleSubmit(createUser)}>
+      <Form onSubmit={handleSubmit(!userAuth ? createUser : updateDataProfile)}>
         <FloatingLabel label="Full Name" className="mb-3">
           <Form.Control
             type="text"
@@ -94,14 +129,16 @@ export const FormRegister = ({ setShow }) => {
           {errors.fullname?.message}
         </FloatingLabel>
 
-        <FloatingLabel label="Email address" className="mb-3">
-          <Form.Control
-            type="email"
-            placeholder="name@example.com"
-            {...register("email", { required: true })}
-          />
-          {errors.email?.message}
-        </FloatingLabel>
+        {!userAuth && (
+          <FloatingLabel label="Email address" className="mb-3">
+            <Form.Control
+              type="email"
+              placeholder="name@example.com"
+              {...register("email", { required: true })}
+            />
+            {errors.email?.message}
+          </FloatingLabel>
+        )}
 
         <Form.Group
           className="mb-3 d-flex text-center align-items-end "
@@ -157,17 +194,21 @@ export const FormRegister = ({ setShow }) => {
           variant="primary"
           type="submit"
         >
-          Register
+          {!userAuth ? "Register" : "Update"}
         </Button>
       </Form>
-      <span className="text-decoration-underline d-flex justify-content-center mt-2"></span>
-      <Link
-        className="text-decoration-none d-flex justify-content-center mt-2"
-        style={{ color: "#000" }}
-        to="/login"
-      >
-        Have an account?
-      </Link>
+      {!userAuth && (
+        <>
+          <span className="text-decoration-underline d-flex justify-content-center mt-2"></span>
+          <Link
+            className="text-decoration-none d-flex justify-content-center mt-2"
+            style={{ color: "#000" }}
+            to="/login"
+          >
+            Have an account?
+          </Link>
+        </>
+      )}
     </div>
   );
 };

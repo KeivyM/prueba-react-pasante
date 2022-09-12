@@ -3,12 +3,10 @@ import { Card } from "react-bootstrap";
 export const Frustrations = () => {
   return (
     <Card
-      className="col-12"
+      className="col-12 section-frustrations-custom"
       style={{
-        background: "#eee",
         height: "20%",
         overflow: "auto",
-        fontSize: ".9rem",
       }}
     >
       <Card.Body>

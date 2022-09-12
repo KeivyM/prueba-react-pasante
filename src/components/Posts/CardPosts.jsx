@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -9,26 +10,21 @@ export const CardPosts = ({ title, usersId, createdDate, id }) => {
 
   let navigate = useNavigate();
 
-  const getUser = async () => {
-    await axios
-      .get(`http://localhost:3002/users/${usersId}`)
-      .then((res) => setUser(res.data));
-  };
-
-  const postDetails = () => {
-    navigate(`${id}`);
-  };
+  const getUser = useMemo(
+    () => async () => {
+      await axios
+        .get(`http://localhost:3002/users/${usersId}`)
+        .then((res) => setUser(res.data));
+    },
+    [usersId]
+  );
 
   useEffect(() => {
     getUser();
-  }, [usersId]);
+  }, [getUser, usersId]);
 
   return (
-    <Card
-      className="card-cardPosts"
-      style={{ width: "18rem" }}
-      onClick={postDetails}
-    >
+    <Card className="card-cardPosts" onClick={() => navigate(`${id}`)}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
       </Card.Body>
