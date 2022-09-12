@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 export const MyPosts = ({ id }) => {
+  let navigate = useNavigate();
   const { userAuth } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
 
@@ -35,14 +36,17 @@ export const MyPosts = ({ id }) => {
     >
       <Card.Header>
         <Card.Title>My Posts</Card.Title>
-        <Link
-          title="new post"
-          className="btn position-absolute px-2 py-0 fs-2 mx-2"
-          style={{ top: "0px", right: "0px", border: "none" }}
-          to="/post"
-        >
-          +
-        </Link>
+        <i
+          className="fa-solid fa-plus position-absolute"
+          title="New post"
+          style={{
+            cursor: "pointer",
+            top: "13px",
+            right: "13px",
+            fontSize: "20px",
+          }}
+          onClick={() => navigate("/post")}
+        ></i>
       </Card.Header>
 
       <Card.Body style={{ overflow: "auto" }}>
@@ -53,13 +57,18 @@ export const MyPosts = ({ id }) => {
                 <Card.Text className="d-flex justify-content-around position-relative">
                   <span> {post.title}</span>-- <span>{post.createdDate}</span>{" "}
                   {userAuth.id === Number(id) && (
-                    <span
-                      className="btn btn-danger p-2 py-0 position-relative"
+                    // <span
+                    //   className="btn btn-danger p-2 py-0 position-relative"
+                    //   title="Delete"
+                    //   onClick={() => deletePost(post)}
+                    // >
+                    //   D
+                    // </span>
+                    <i
+                      className="fa-solid fa-trash"
                       title="Delete"
                       onClick={() => deletePost(post)}
-                    >
-                      D
-                    </span>
+                    ></i>
                   )}
                 </Card.Text>
                 {index < 4 && <hr />}

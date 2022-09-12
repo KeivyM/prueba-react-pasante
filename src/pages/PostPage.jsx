@@ -1,8 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { FormCreatePost } from "../components/forms";
 import { FormUpdatePost } from "../components/forms/FormUpdatePost";
 
 export const PostPage = ({ type }) => {
-  console.log(type);
+  const [defaultValues, setDefaultValues] = useState({});
+  const { id } = useParams();
+
+  const getPost = async () => {
+    if (!id) return;
+    await axios
+      .get(`http://localhost:3002/posts/${id}`)
+      .then((res) => setDefaultValues(res.data));
+  };
+  useEffect(() => {
+    getPost();
+  }, [id]);
+
+  // console.log({ defaultValues });
+
   return (
     <div
       className="container-fluid d-flex align-items-center"
@@ -19,7 +36,7 @@ export const PostPage = ({ type }) => {
       >
         <h2 className="text-center">{type} Post</h2>
 
-        {type === "update" ? <FormUpdatePost /> : <FormCreatePost />}
+        {id ? <FormUpdatePost values={defaultValues} /> : <FormCreatePost />}
       </div>
     </div>
   );

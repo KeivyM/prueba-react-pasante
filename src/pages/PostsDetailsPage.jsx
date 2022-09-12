@@ -36,11 +36,6 @@ export const PostsDetailsPage = () => {
       });
   };
 
-  // useEffect(() => {
-  //   getPost();
-  //   getComments();
-  // }, []);
-
   useEffect(() => {
     getPost();
   }, [id]);

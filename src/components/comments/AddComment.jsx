@@ -48,10 +48,11 @@ export const AddComment = ({ postsId, setUpdate, update }) => {
 
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-primary py-2"
           style={{ height: "max-content" }}
         >
-          Comment
+          {/* Comment */}
+          <i class="fa-solid fa-paper-plane"></i>
         </button>
       </Form>
     </div>

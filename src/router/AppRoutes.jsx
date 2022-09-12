@@ -11,6 +11,7 @@ import {
   ProfilePage,
   RegisterPage,
 } from "../pages";
+import { ProfileEditPage } from "../pages/ProfileEditPage";
 
 export const AppRoutes = () => {
   const { auth, userAuth } = useContext(AuthContext);
@@ -25,15 +26,11 @@ export const AppRoutes = () => {
               element={<Navigate to={`/profile/${userAuth?.id}`} />}
             />
             <Route path="/profile/:id" element={<ProfilePage />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/post" element={<PostPage type="new" />} />
-            <Route
-              path="/post/update/:id"
-              element={<PostPage type="update" />}
-            />
+            <Route path="/post/:id" element={<PostPage type="update" />} />
 
             <Route path="/posts" element={<PostsPage />} />
-            {/*
-            <Route path="/posts" element={<PostsDetailsPage />} /> */}
             <Route path="/posts/:id" element={<PostsDetailsPage />} />
             <Route path="/*" element={<NotFoundPage />} />
             <Route path="/login" element={<Navigate to="/" />} />

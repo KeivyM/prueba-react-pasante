@@ -21,15 +21,6 @@ export const Post = ({ post }) => {
     }
   };
 
-  const deleteComment = async (id) => {
-    const confirm = window.confirm("You want to delete this comment?");
-    console.log(id);
-    navigate(`/post/update/${id}`);
-    // if (!confirm) return;
-    // await axios.delete(`http://localhost:3002/comments/${id}`);
-    // setUpdate(!update);
-  };
-
   useEffect(() => {
     getUser();
   }, [usersId]);
@@ -37,18 +28,13 @@ export const Post = ({ post }) => {
   return (
     <>
       <div
-        className="container p-3"
+        className="container p-3 position-relative"
         style={{
           background: "rgb(204, 221, 221) none repeat scroll 0% 0%",
           borderRadius: "10px",
         }}
       >
-        <div
-          className="container d-flex align-items-end justify-content-start p-0 gap-3 mb-4"
-          // style={{ background: "red" }}
-          //           background: rgb(204, 221, 221) none repeat scroll 0% 0%;
-          // border-radius: 10px;
-        >
+        <div className="container d-flex align-items-end justify-content-start p-0 gap-3 mb-4">
           <strong>
             <Link
               className="text-decoration-none d-flex  align-items-end"
@@ -69,14 +55,20 @@ export const Post = ({ post }) => {
           <p className="">{content}</p>
         </div>
         {userAuth.id === Number(usersId) && (
-          <span
-            className="btn btn-danger p-2 py-0 position-relative"
-            title="Delete"
-            onClick={() => deleteComment(id)}
-          >
-            edit
-          </span>
+          <i
+            className="fa-solid fa-pen-to-square position-absolute"
+            title="Edit Post"
+            onClick={() => navigate(`/post/${id}`)}
+            style={{ cursor: "pointer", top: "15px", right: "15px" }}
+          ></i>
         )}
+
+        {/* <i className="fa-solid fa-ellipsis-vertical"></i>
+        <i className="fa-solid fa-trash"></i>
+        <i className="fa-solid fa-plus"></i>
+        <i className="fa-solid fa-right-from-bracket"></i>
+        <i className="fa-solid fa-pen-to-square"></i>
+        <i class="fa-solid fa-paper-plane"></i> */}
       </div>
     </>
   );

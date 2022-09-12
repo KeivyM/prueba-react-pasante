@@ -23,7 +23,7 @@ export const Comment = ({
 
   return (
     <div
-      className="container mb-3 p-2"
+      className="container mb-3 p-2 position-relative"
       style={{
         background: "rgb(247, 255, 207)",
         borderRadius: "10px",
@@ -40,13 +40,12 @@ export const Comment = ({
       </div>
       <div className="container mx-3">{comment}</div>
       {userAuth.id === Number(usersId) && (
-        <span
-          className="btn btn-danger p-2 py-0 position-relative"
+        <i
+          className="fa-solid fa-trash position-absolute"
           title="Delete"
+          style={{ cursor: "pointer", top: "10px", right: "10px" }}
           onClick={() => deleteComment(id)}
-        >
-          D
-        </span>
+        ></i>
       )}
     </div>
   );

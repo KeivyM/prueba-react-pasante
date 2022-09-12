@@ -30,7 +30,9 @@ export const NavBar = () => {
             New Post
           </Link>
         </Nav>
-        <Button onClick={logout}>Logout</Button>
+        <Button onClick={logout}>
+          Logout<i className="fa-solid fa-right-from-bracket mx-2"></i>
+        </Button>
       </Container>
     </Navbar>
   );
