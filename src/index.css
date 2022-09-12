@@ -13,10 +13,16 @@ code {
 }
 
 .card-cardPosts {
-  background-color: rgb(176, 176, 176);
+  /* background-color: rgb(194, 194, 236); */
+  background-color: rgb(247, 255, 207);
   cursor: pointer;
+  border: 1px solid;
+  transition: transform 0.2s;
+  box-shadow: none;
 }
 
 .card-cardPosts:hover {
-  background-color: rgb(187, 184, 184);
+  box-shadow: 0 0 4px -1px;
+  width: 18rem;
+  transform: scale(1.01);
 }

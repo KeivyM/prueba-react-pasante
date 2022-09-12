@@ -1,38 +1,45 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useUserById } from "../../hooks/useUserById";
 import { Avatar } from "../Avatar";
 
 export const CardPosts = ({ title, usersId, createdDate, id }) => {
-  let navigate = useNavigate();
-  const { user } = useUserById(usersId);
-  // const { username } = user;
+  const [user, setUser] = useState({});
 
-  const moreDetails = () => {
+  let navigate = useNavigate();
+
+  const getUser = async () => {
+    await axios
+      .get(`http://localhost:3002/users/${usersId}`)
+      .then((res) => setUser(res.data));
+  };
+
+  const postDetails = () => {
     navigate(`${id}`);
   };
+
+  useEffect(() => {
+    getUser();
+  }, [usersId]);
 
   return (
     <Card
       className="card-cardPosts"
       style={{ width: "18rem" }}
-      onClick={moreDetails}
+      onClick={postDetails}
     >
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        {/* <Button variant="secondary" onClick={moreDetails}>
-          More details
-        </Button> */}
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>
           {" "}
-          <Avatar size={20} /> by {user[0]?.username}
+          <Avatar size={20} /> by {user?.username}
         </ListGroup.Item>
       </ListGroup>
       <Card.Footer>
         <small className="text-muted">{createdDate}</small>
-        {/* <small className="text-muted">Last updated 3 mins ago</small> */}
       </Card.Footer>
     </Card>
   );

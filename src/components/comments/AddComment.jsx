@@ -28,25 +28,29 @@ export const AddComment = ({ postsId, setUpdate, update }) => {
   };
 
   return (
-    <div
-      className="container d-inline-flex mt-3 align-items-center gap-2"
-      // style={{ background: "#ddd" }}
-    >
+    <div className="container d-flex mt-3 align-items-center gap-2 justify-content-around p-0">
       <Avatar />
 
       <Form
-        className="d-inline w-100 postion-relative"
-        style={{ background: "red" }}
+        className="d-flex w-100 gap-1 align-items-center"
         onSubmit={handleSubmit(sendComment)}
       >
         <Form.Control
           as="textarea"
           placeholder="Write a comment"
-          className=""
+          style={{
+            maxHeight: "150px",
+            minHeight: "100px",
+            border: "1px solid",
+          }}
           {...register("comment", { required: true })}
         />
 
-        <button type="submit" className="btn btn-primary ">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={{ height: "max-content" }}
+        >
           Comment
         </button>
       </Form>

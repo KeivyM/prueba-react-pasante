@@ -44,6 +44,14 @@
       "createdDate": "Sat, 10 Sep 2022 00:40:26 GMT",
       "usersId": 1,
       "id": 2
+    },
+    {
+      "title": "hjg",
+      "subtitle": "ghg",
+      "content": "ghj",
+      "createdDate": "Sat, 10 Sep 2022 05:12:44 GMT",
+      "usersId": 1,
+      "id": 3
     }
   ],
   "comments": [
@@ -54,6 +62,30 @@
       "usersId": 1,
       "createdDate": "Sat, 10 Sep 2022 00:51:38 GMT",
       "id": 1
+    },
+    {
+      "comment": "Pronto sabras jaja",
+      "username": "Leandro Villa",
+      "postsId": 1,
+      "usersId": 3,
+      "createdDate": "Sun, 11 Sep 2022 01:16:26 GMT",
+      "id": 2
+    },
+    {
+      "comment": "DIME YAAAA",
+      "username": "Pablo Lopez",
+      "postsId": 1,
+      "usersId": 1,
+      "createdDate": "Sat, 10 Sep 2022 11:10:46 GMT",
+      "id": 3
+    },
+    {
+      "comment": "hola",
+      "username": "Pablo Lopez",
+      "postsId": 2,
+      "usersId": 1,
+      "createdDate": "Sat, 10 Sep 2022 04:26:34 GMT",
+      "id": 4
     }
   ]
 }

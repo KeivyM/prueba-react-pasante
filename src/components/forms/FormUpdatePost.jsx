@@ -1,12 +1,13 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context";
 
-export const FormCreatePost = () => {
+export const FormUpdatePost = () => {
   const { userAuth } = useContext(AuthContext);
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -14,21 +15,26 @@ export const FormCreatePost = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    control,
   } = useForm();
+  const { content, title, subtitle } = control._formValues;
 
-  const createPost = async (value) => {
-    const time = Date.now();
-    const now = new Date(time).toUTCString();
-    value.createdDate = now;
-    value.usersId = userAuth.id;
+  const getPost = async () => {
+    await axios
+      .get(`http://localhost:3002/posts/${id}`)
+      .then((res) => console.log(res.data));
+  };
+  useEffect(() => {
+    getPost();
+  }, []);
 
-    await axios.post("http://localhost:3002/posts", value);
-    reset();
-    navigate("/posts");
+  const updatePost = async () => {
+    console.log("actualizando");
+    await getPost();
   };
 
   return (
-    <Form onSubmit={handleSubmit(createPost)}>
+    <Form onSubmit={handleSubmit(updatePost)}>
       <Form.Group className="mb-3">
         <Form.Control
           type="text"
@@ -58,7 +64,7 @@ export const FormCreatePost = () => {
       </Form.Group>
 
       <Button className="w-50 d-block mx-auto" variant="primary" type="submit">
-        Create
+        Update
       </Button>
     </Form>
   );

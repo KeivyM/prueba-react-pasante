@@ -5,19 +5,19 @@ import { CardPosts } from "../components/Posts";
 
 export const PostsPage = () => {
   const [active, setActive] = useState(1);
-  const [posteos, setPosteos] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [pag, setPag] = useState(1);
 
-  const myFuncion = async () => {
+  const getPosts = async () => {
     await axios
       .get(`http://localhost:3002/posts?_page=${active}&_limit=5`)
       .then((res) => {
-        setPosteos(res.data);
+        setPosts(res.data);
       });
   };
 
   useEffect(() => {
-    myFuncion();
+    getPosts();
   }, [active]);
 
   const paginas = async () => {
@@ -47,35 +47,26 @@ export const PostsPage = () => {
     <div
       className="container-fluid px-5 text-center"
       style={{
-        background: "#ddd",
-        height: "calc(100vh - 58px)",
-        minHeight: "400px",
+        background: "rgb(234, 207, 255)",
+        height: "calc(100% - 58px)",
+        minHeight: "calc(100vh - 58px)",
       }}
     >
-      <h3
-        className="col-12 text-center py-2"
-        style={{ background: "grey", display: "grid", height: "max-content" }}
-      >
-        Posts
-      </h3>
+      <h1 className="col-12 text-center py-2 m-0">Posts</h1>
       <div
-        className="d-flex justify-content-center"
+        className="d-flex justify-content-center py-5 gap-3"
         style={{
-          background: "#ada",
+          // background: "#ada",
           height: "max-content",
           flexWrap: "wrap",
-          gap: "10px",
         }}
       >
-        {posteos.map((post, index) => (
+        {posts.map((post, index) => (
           <CardPosts key={index} {...post} />
         ))}
       </div>
-      <div
-        className="container d-inline-flex justify-content-center pt-2"
-        // style={{ background: "red" }}
-      >
-        <Pagination>{items}</Pagination>
+      <div className="container d-flex justify-content-center pt-2">
+        <Pagination style={{ bottom: "5%" }}>{items}</Pagination>
       </div>
     </div>
   );

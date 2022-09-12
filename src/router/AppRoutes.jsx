@@ -6,7 +6,7 @@ import {
   LoginPage,
   NotFoundPage,
   PostPage,
-  PostsDetails,
+  PostsDetailsPage,
   PostsPage,
   ProfilePage,
   RegisterPage,
@@ -25,9 +25,16 @@ export const AppRoutes = () => {
               element={<Navigate to={`/profile/${userAuth?.id}`} />}
             />
             <Route path="/profile/:id" element={<ProfilePage />} />
-            <Route path="/post" element={<PostPage />} />
+            <Route path="/post" element={<PostPage type="new" />} />
+            <Route
+              path="/post/update/:id"
+              element={<PostPage type="update" />}
+            />
+
             <Route path="/posts" element={<PostsPage />} />
-            <Route path="/posts/:id" element={<PostsDetails />} />
+            {/*
+            <Route path="/posts" element={<PostsDetailsPage />} /> */}
+            <Route path="/posts/:id" element={<PostsDetailsPage />} />
             <Route path="/*" element={<NotFoundPage />} />
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/register" element={<Navigate to="/" />} />
@@ -43,17 +50,3 @@ export const AppRoutes = () => {
     </>
   );
 };
-
-// <Routes>
-//   {status === "not-authenticated" ? (
-//     <>
-//       <Route path="/auth/*" element={<LoginPage />} />
-//       <Route path="/*" element={<Navigate to="/auth/login" />} />
-//     </>
-//   ) : (
-//     <>
-//       <Route path="/" element={<CalendarPage />} />
-//       <Route path="/*" element={<Navigate to="/" />} />
-//     </>
-//   )}
-// </Routes>;
