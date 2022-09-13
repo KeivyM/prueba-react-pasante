@@ -19,6 +19,41 @@
 .link-menu-custom:hover {
   color: #250f0d;
 }
+/* page login */
+
+.page-login-custom {
+  background-color: var(--color-secundary-light);
+  height: 100vh;
+}
+
+.container-form-login-custom {
+  background-color: var(--color-secundary);
+  max-width: 600px;
+  border: 1px solid;
+  box-shadow: 0 0 6px -2px brown;
+}
+
+/* page register */
+
+.page-register-custom {
+  background-color: var(--color-secundary-light);
+  min-height: 100vh;
+  height: max-content;
+}
+
+.container-form-register-custom {
+  background-color: var(--color-secundary);
+  max-width: 600px;
+  box-shadow: 0 0 6px -2px brown;
+  border: 1px solid;
+  height: max-content;
+}
+
+/* page edit profile */
+.page-editprofile-custom {
+  background-color: var(--color-secundary-light);
+  height: 100vh;
+}
 
 /* page profile */
 

@@ -25,7 +25,6 @@ export const MyPosts = ({ id }) => {
     const confirm = window.confirm("You want to delete this post?");
     if (!confirm) return;
     await axios.delete(`http://localhost:3002/posts/${id}`);
-    //eliminar tambien los comentarios relacionados
     getPosts();
   };
 

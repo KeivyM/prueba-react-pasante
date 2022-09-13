@@ -46,12 +46,12 @@ export const FormLogin = ({ setShow }) => {
 
   return (
     <div
-      className="container-sm p-5 pb-4"
-      style={{
-        background: "#ddd",
-        maxWidth: "600px",
-        boxShadow: "0 0 6px -2px brown",
-      }}
+      className="container-sm p-5 pb-4 rounded-3 container-form-login-custom"
+      // style={{
+      //   background: "#ddd",
+      //   maxWidth: "600px",
+      //   boxShadow: "0 0 6px -2px brown",
+      // }}
     >
       <h2 className="text-center">Login</h2>
       <Form onSubmit={handleSubmit(validateUser)}>
@@ -79,7 +79,7 @@ export const FormLogin = ({ setShow }) => {
         </FloatingLabel>
 
         <Button
-          className="d-block w-50 mx-auto"
+          className="d-block w-50 mx-auto buttons-custom"
           variant="primary"
           type="submit"
         >

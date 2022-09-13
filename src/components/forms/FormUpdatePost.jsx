@@ -55,7 +55,7 @@ export const FormUpdatePost = ({ values }) => {
       </Form.Group>
 
       <Button
-        className="w-50 d-block mx-auto button-update-post"
+        className="w-50 d-block mx-auto buttons-custom button-update-post"
         variant="primary"
         type="submit"
       >

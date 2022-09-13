@@ -1,6 +1,13 @@
+import { useContext } from "react";
 import { Card } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../context";
 
 export const PersonalInfo = ({ username }) => {
+  const { userAuth } = useContext(AuthContext);
+  let navigate = useNavigate();
+  const { id } = useParams();
+
   return (
     <Card
       style={{
@@ -10,6 +17,14 @@ export const PersonalInfo = ({ username }) => {
       }}
       className="col-3"
     >
+      {userAuth.id === Number(id) && (
+        <i
+          className="fa-solid fa-pen-to-square position-absolute"
+          title="Edit"
+          onClick={() => navigate(`/profile/edit/`)}
+          style={{ cursor: "pointer", top: "15px", right: "15px" }}
+        ></i>
+      )}
       <Card.Img
         variant="top"
         className="mx-auto mb-2 border border-5 rounded-circle"

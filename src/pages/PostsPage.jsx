@@ -51,9 +51,11 @@ export const PostsPage = () => {
     <div className="container-fluid px-5 text-center page-posts-custom">
       <h1 className="col-12 text-center py-2 m-0 title-posts-custom">Posts</h1>
       <div className="d-flex justify-content-center flex-wrap py-5 gap-3 container-post-custom">
-        {posts.map((post, index) => (
-          <CardPosts key={index} {...post} />
-        ))}
+        {posts.length < 1 ? (
+          <h5>No posts</h5>
+        ) : (
+          posts.map((post, index) => <CardPosts key={index} {...post} />)
+        )}
       </div>
       <div className="container d-flex justify-content-center pt-2">
         <Pagination

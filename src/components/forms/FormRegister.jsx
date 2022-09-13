@@ -5,58 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-YupPassword(yup);
-
-const requireField = () => yup.string().required("Password is required");
-
-const schema = yup
-  .object({
-    fullname: yup.string().required("This field is required"),
-    email: yup
-      .string()
-      .email("Email must be a valid email")
-      .required("Email is required"),
-    birthdate: yup.string().required("Date is required"),
-    username: yup.string().required("Username is required"),
-    password: requireField()
-      .min(8, "The password must be at least 8 characters")
-      .minLowercase(1, "Must have 1 lowercase letter")
-      .minUppercase(1, "Must have 1 uppercase letter")
-      .minNumbers(1, "Must have 1 number")
-      .minSymbols(1, "Must have 1 special character"),
-    passwordRepeat: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Incorrect password")
-      .required("Password is required"),
-  })
-  .required()
-  .strict();
-
-const schemaUpdate = yup
-  .object({
-    fullname: yup.string().required("This field is required"),
-    birthdate: yup.string().required("Date is required"),
-    username: yup.string().required("Username is required"),
-    password: requireField()
-      .min(8, "The password must be at least 8 characters")
-      .minLowercase(1, "Must have 1 lowercase letter")
-      .minUppercase(1, "Must have 1 uppercase letter")
-      .minNumbers(1, "Must have 1 number")
-      .minSymbols(1, "Must have 1 special character"),
-    passwordRepeat: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Incorrect password")
-      .required("Password is required"),
-  })
-  .required()
-  .strict();
+import { schemaRegister, schemaUpdate } from "./schemas";
 
 export const FormRegister = ({ setShow }) => {
   const [showPassword, setPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  const { userAuth, users, setAuth, updateData, setUpdateData } =
+  const { userAuth, setAuth, auth, updateData, setUpdateData } =
     useContext(AuthContext);
   let navigate = useNavigate();
 
@@ -66,11 +20,14 @@ export const FormRegister = ({ setShow }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(!!userAuth ? schemaUpdate : schema),
+    resolver: yupResolver(!!userAuth ? schemaUpdate : schemaRegister),
   });
 
   const createUser = async (newUser) => {
-    console.log(newUser);
+    const users = await axios
+      .get("http://localhost:3002/users")
+      .then((res) => res.data);
+
     const emailValid = users.filter((user) => user.email === newUser.email);
 
     if (emailValid.length !== 0)
@@ -82,6 +39,7 @@ export const FormRegister = ({ setShow }) => {
     const time = Date.now();
     const now = new Date(time).toUTCString();
     newUser.registerDate = now;
+    delete newUser.passwordRepeat;
 
     const res = await axios.post("http://localhost:3002/users", newUser);
 
@@ -93,7 +51,6 @@ export const FormRegister = ({ setShow }) => {
     setUpdateData(!updateData);
   };
 
-  console.log(!!userAuth);
   const updateDataProfile = async (data) => {
     delete data.passwordRepeat;
 
@@ -109,17 +66,10 @@ export const FormRegister = ({ setShow }) => {
   };
 
   return (
-    <div
-      className="container-sm p-5 pb-4"
-      style={{
-        background: "#ddd",
-        maxWidth: "600px",
-        boxShadow: "0 0 6px -2px brown",
-      }}
-    >
-      <h2 className="text-center"> {!userAuth ? "Register" : "Update Data"}</h2>
+    <div className="container-sm p-5 pb-4 my-1 rounded-3 container-form-register-custom">
+      <h2 className="text-center"> {!auth ? "Register" : "Update Data"}</h2>
 
-      <Form onSubmit={handleSubmit(!userAuth ? createUser : updateDataProfile)}>
+      <Form onSubmit={handleSubmit(!auth ? createUser : updateDataProfile)}>
         <FloatingLabel label="Full Name" className="mb-3">
           <Form.Control
             type="text"
@@ -129,7 +79,7 @@ export const FormRegister = ({ setShow }) => {
           {errors.fullname?.message}
         </FloatingLabel>
 
-        {!userAuth && (
+        {!auth && (
           <FloatingLabel label="Email address" className="mb-3">
             <Form.Control
               type="email"
@@ -190,14 +140,14 @@ export const FormRegister = ({ setShow }) => {
         </FloatingLabel>
 
         <Button
-          className="w-50 mx-auto d-block"
+          className="w-50 mx-auto d-block buttons-custom"
           variant="primary"
           type="submit"
         >
-          {!userAuth ? "Register" : "Update"}
+          {auth ? "Update" : "Register"}
         </Button>
       </Form>
-      {!userAuth && (
+      {!auth && (
         <>
           <span className="text-decoration-underline d-flex justify-content-center mt-2"></span>
           <Link
