@@ -59,6 +59,8 @@
 
 .page-profile-custom {
   background-color: var(--color-secundary-light);
+  height: max-content;
+  min-height: 100vh;
 }
 
 .container-profile-custom {
@@ -96,6 +98,7 @@
 
 .container-post-details-custom {
   height: max-content;
+  max-width: 1000px;
   background-color: var(--color-secundary);
   border: 1px solid;
 }
@@ -122,6 +125,7 @@
 }
 
 /* page posts  */
+
 .page-posts-custom {
   background-color: var(--color-secundary-light);
   height: max-content;

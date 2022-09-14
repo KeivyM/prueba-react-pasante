@@ -4,6 +4,7 @@ import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import endpoints from "../../utils/endpoints";
 
 export const FormLogin = ({ setShow }) => {
   const navigate = useNavigate();
@@ -19,9 +20,7 @@ export const FormLogin = ({ setShow }) => {
   const [revealed, setRevealed] = useState(false);
 
   const validateUser = async (value) => {
-    const users = await axios
-      .get("http://localhost:3002/users")
-      .then((res) => res.data);
+    const users = await axios.get(endpoints.getUsers).then((res) => res.data);
 
     const emailValid = users.filter((user) => user.email === value.email);
     if (emailValid.length === 0)
@@ -45,14 +44,7 @@ export const FormLogin = ({ setShow }) => {
   };
 
   return (
-    <div
-      className="container-sm p-5 pb-4 rounded-3 container-form-login-custom"
-      // style={{
-      //   background: "#ddd",
-      //   maxWidth: "600px",
-      //   boxShadow: "0 0 6px -2px brown",
-      // }}
-    >
+    <div className="container-sm p-5 pb-4 rounded-3 container-form-login-custom">
       <h2 className="text-center">Login</h2>
       <Form onSubmit={handleSubmit(validateUser)}>
         <FloatingLabel label="Email address" className="mb-3">

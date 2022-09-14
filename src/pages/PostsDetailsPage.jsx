@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { AddComment, Comment } from "../components/comments";
 import { Loading } from "../components/Loading";
 import { Post } from "../components/Posts";
+import endpoints from "../utils/endpoints";
 import { NotFoundPage } from "./NotFoundPage";
 
 export const PostsDetailsPage = () => {
@@ -19,7 +20,7 @@ export const PostsDetailsPage = () => {
   const getPost = useMemo(
     () => async () => {
       await axios
-        .get(`http://localhost:3002/posts/${id}`)
+        .get(`${endpoints.getPosts}/${id}`)
         .then((res) => {
           setPost(res.data);
           setPostValid(true);
@@ -35,11 +36,9 @@ export const PostsDetailsPage = () => {
 
   const getComments = useMemo(
     () => async () => {
-      await axios
-        .get(`http://localhost:3002/comments?postsId=${id}`)
-        .then((res) => {
-          setComments(res.data);
-        });
+      await axios.get(`${endpoints.getComments}?postsId=${id}`).then((res) => {
+        setComments(res.data);
+      });
     },
     [id]
   );
@@ -57,11 +56,11 @@ export const PostsDetailsPage = () => {
       {loading === "loading" ? (
         <Loading />
       ) : postValid ? (
-        <div className="container-xxl page-post-details-custom">
+        <div className="container-fluid page-post-details-custom">
           <h1 className="text-center pt-3 title-post-details-custom">
             Post Details
           </h1>
-          <div className="container w-75 p-5 container-post-details-custom">
+          <div className="container w-75 p-5 rounded-3 container-post-details-custom">
             <Post post={post} />
             <hr />
 

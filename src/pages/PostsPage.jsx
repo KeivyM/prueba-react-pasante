@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { CardPosts } from "../components/Posts";
+import endpoints from "../utils/endpoints";
 
 export const PostsPage = () => {
   const [active, setActive] = useState(1);
@@ -12,7 +13,7 @@ export const PostsPage = () => {
   const getPosts = useMemo(
     () => async () => {
       await axios
-        .get(`http://localhost:3002/posts?_page=${active}&_limit=5`)
+        .get(`${endpoints.getPosts}?_page=${active}&_limit=5`)
         .then((res) => {
           setPosts(res.data);
         });
@@ -25,7 +26,7 @@ export const PostsPage = () => {
   }, [getPosts, active]);
 
   const paginas = async () => {
-    await axios.get(`http://localhost:3002/posts`).then((res) => {
+    await axios.get(`${endpoints.getPosts}`).then((res) => {
       setPag(res.data.length);
     });
   };
@@ -49,8 +50,8 @@ export const PostsPage = () => {
 
   return (
     <div className="container-fluid px-5 text-center page-posts-custom">
-      <h1 className="col-12 text-center py-2 m-0 title-posts-custom">Posts</h1>
-      <div className="d-flex justify-content-center flex-wrap py-5 gap-3 container-post-custom">
+      <h1 className="col-12 text-center py-2 m-0  title-posts-custom">Posts</h1>
+      <div className="d-flex justify-content-center rounded-3 flex-wrap py-5 gap-3 container-post-custom">
         {posts.length < 1 ? (
           <h5>No posts</h5>
         ) : (

@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 
-export const AuthFailed = ({ show, setShow }) => {
+export const ModalAuthFailed = ({ show, setShow }) => {
   const handleClose = () => setShow(false);
   return (
     <Modal show={show[0]} onHide={handleClose}>

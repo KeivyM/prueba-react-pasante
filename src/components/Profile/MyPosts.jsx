@@ -4,8 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import endpoints from "../../utils/endpoints";
+import { ModalConfirm } from "../modals";
 
 export const MyPosts = ({ id }) => {
+  const [show, setShow] = useState([false, ""]);
   let navigate = useNavigate();
   const { userAuth } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
@@ -13,7 +16,7 @@ export const MyPosts = ({ id }) => {
   const getPosts = useMemo(
     () => async () => {
       await axios
-        .get(`http://localhost:3002/posts?usersId=${id}&_sort=id&_order=desc`)
+        .get(`${endpoints.getPosts}?usersId=${id}&_sort=id&_order=desc`)
         .then((res) => {
           setPosts(res.data);
         });
@@ -21,22 +24,17 @@ export const MyPosts = ({ id }) => {
     [id]
   );
 
-  const deletePost = async ({ id }) => {
-    const confirm = window.confirm("You want to delete this post?");
-    if (!confirm) return;
-    await axios.delete(`http://localhost:3002/posts/${id}`);
-    getPosts();
-  };
-
   useEffect(() => {
     getPosts();
-  }, [getPosts, id]);
+  }, [getPosts, show, id]);
 
   return (
     <Card
       className="col-12"
       style={{ background: "#eee", height: "40%", fontSize: ".9rem" }}
     >
+      <ModalConfirm url="posts" show={show} setShow={setShow} />
+
       <Card.Header>
         <Card.Title>My Posts</Card.Title>
         <i
@@ -64,7 +62,13 @@ export const MyPosts = ({ id }) => {
                       className="fa-solid fa-trash"
                       title="Delete"
                       style={{ cursor: "pointer" }}
-                      onClick={() => deletePost(post)}
+                      onClick={() =>
+                        setShow([
+                          true,
+                          "You want to remove this post?",
+                          post.id,
+                        ])
+                      }
                     ></i>
                   )}
                 </Card.Text>

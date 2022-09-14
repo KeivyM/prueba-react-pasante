@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import endpoints from "../../utils/endpoints";
 import { Avatar } from "../Avatar";
 
 export const CardPosts = ({ title, usersId, createdDate, id }) => {
@@ -13,7 +14,7 @@ export const CardPosts = ({ title, usersId, createdDate, id }) => {
   const getUser = useMemo(
     () => async () => {
       await axios
-        .get(`http://localhost:3002/users/${usersId}`)
+        .get(`${endpoints.getUsers}/${usersId}`)
         .then((res) => setUser(res.data));
     },
     [usersId]

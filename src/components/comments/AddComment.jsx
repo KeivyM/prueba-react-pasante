@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
+import endpoints from "../../utils/endpoints";
 import { Avatar } from "../Avatar";
 
 export const AddComment = ({ postsId, setUpdate, update }) => {
@@ -22,7 +23,7 @@ export const AddComment = ({ postsId, setUpdate, update }) => {
     const now = new Date(time).toUTCString();
     value.createdDate = now;
 
-    await axios.post("http://localhost:3002/comments", value);
+    await axios.post(endpoints.getComments, value);
     reset();
     setUpdate(!update);
   };

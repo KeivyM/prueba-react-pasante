@@ -6,7 +6,10 @@ const requireField = () => yup.string().required("Password is required");
 
 export const schemaRegister = yup
   .object({
-    fullname: yup.string().required("This field is required"),
+    fullname: yup
+      .string()
+      .required("This field is required")
+      .matches(/^[a-zA-Zs\s]*$/, "Numbers are not permitted"),
     email: yup
       .string()
       .email("Email must be a valid email")
@@ -29,7 +32,10 @@ export const schemaRegister = yup
 
 export const schemaUpdate = yup
   .object({
-    fullname: yup.string().required("This field is required"),
+    fullname: yup
+      .string()
+      .required("This field is required")
+      .matches(/^[a-zA-Zs\s]*$/, "Numbers are not permitted"),
     birthdate: yup.string().required("Date is required"),
     username: yup.string().required("Username is required"),
     password: requireField()

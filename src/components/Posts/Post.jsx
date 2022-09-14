@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context";
+import endpoints from "../../utils/endpoints";
 import { Avatar } from "../Avatar";
 
 export const Post = ({ post }) => {
@@ -16,7 +17,7 @@ export const Post = ({ post }) => {
     () => async () => {
       try {
         axios
-          .get(`http://localhost:3002/users/${usersId}`)
+          .get(`${endpoints.getUsers}/${usersId}`)
           .then((res) => setUsername(res.data.username));
       } catch (error) {
         console.log(error);

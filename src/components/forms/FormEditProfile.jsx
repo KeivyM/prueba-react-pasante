@@ -1,69 +1,66 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaRegister } from "../../utils/schemas";
+import { schemaUpdate } from "../../utils/schemas";
 import endpoints from "../../utils/endpoints";
 
-export const FormRegister = ({ setShow }) => {
+export const FormEditProfile = ({ setShow }) => {
   const [showPassword, setPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  const { setAuth, updateData, setUpdateData } = useContext(AuthContext);
+  const { userAuth, updateData, setUpdateData } = useContext(AuthContext);
   let navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schemaRegister),
+    resolver: yupResolver(schemaUpdate),
   });
 
-  const createUser = async (newUser) => {
+  const updateDataProfile = async (data) => {
     const users = await axios.get(endpoints.getUsers).then((res) => res.data);
 
-    const emailValid = users.filter((user) => user.email === newUser.email);
-
-    if (emailValid.length !== 0)
-      return setShow([
-        true,
-        "Another user exists with that email, please check it.",
-      ]);
-
     const usernameValid = users.filter(
-      (user) => user.username === newUser.username
+      (user) => user.username === data.username
     );
 
-    if (usernameValid.length !== 0)
+    if (usernameValid.length !== 0 && usernameValid[0].id !== userAuth.id)
       return setShow([
         true,
         "Another user exists with that username, please change it.",
       ]);
 
-    const time = Date.now();
-    const now = new Date(time).toUTCString();
-    newUser.registerDate = now;
-    delete newUser.passwordRepeat;
+    delete data.passwordRepeat;
 
-    const res = await axios.post(endpoints.getUsers, newUser);
+    const res = await axios.patch(`${endpoints.getUsers}/${userAuth.id}`, data);
 
     localStorage.setItem("userAuth", JSON.stringify(res.data));
 
     reset();
-    navigate(`/profile/${res.data.id}`);
-    setAuth(true);
+    navigate(`/profile/${userAuth.id}`);
     setUpdateData(!updateData);
   };
 
+  useEffect(() => {
+    setValue("fullname", userAuth.fullname);
+    setValue("birthdate", userAuth.birthdate);
+    setValue("username", userAuth.username);
+    setValue("password", userAuth.password);
+    setValue("passwordRepeat", userAuth.password);
+  }, [setValue, userAuth]);
+
   return (
     <div className="container-sm p-5 pb-4 my-1 rounded-3 container-form-register-custom">
-      <h2 className="text-center"> Register</h2>
+      <h2 className="text-center"> Update Data</h2>
 
-      <Form onSubmit={handleSubmit(createUser)}>
+      <Form onSubmit={handleSubmit(updateDataProfile)}>
         <FloatingLabel label="Full Name" className="mb-3">
           <Form.Control
             type="text"
@@ -71,15 +68,6 @@ export const FormRegister = ({ setShow }) => {
             {...register("fullname", { required: true })}
           />
           {errors.fullname?.message}
-        </FloatingLabel>
-
-        <FloatingLabel label="Email address" className="mb-3">
-          <Form.Control
-            type="email"
-            placeholder="name@example.com"
-            {...register("email", { required: true })}
-          />
-          {errors.email?.message}
         </FloatingLabel>
 
         <Form.Group
@@ -136,18 +124,9 @@ export const FormRegister = ({ setShow }) => {
           variant="primary"
           type="submit"
         >
-          Register
+          Update
         </Button>
       </Form>
-
-      <span className="text-decoration-underline d-flex justify-content-center mt-2"></span>
-      <Link
-        className="text-decoration-none d-flex justify-content-center mt-2"
-        style={{ color: "#000" }}
-        to="/login"
-      >
-        Have an account?
-      </Link>
     </div>
   );
 };

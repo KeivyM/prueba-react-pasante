@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context";
+import endpoints from "../../utils/endpoints";
 
 export const FormCreatePost = () => {
   const { userAuth } = useContext(AuthContext);
@@ -22,7 +23,7 @@ export const FormCreatePost = () => {
     value.createdDate = now;
     value.usersId = userAuth.id;
 
-    await axios.post("http://localhost:3002/posts", value);
+    await axios.post(endpoints.getPosts, value);
     reset();
     navigate("/posts");
   };

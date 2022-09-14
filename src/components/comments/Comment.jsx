@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Avatar } from "../Avatar";
+import { ModalConfirm } from "../modals";
 
 export const Comment = ({
   username,
@@ -12,17 +12,16 @@ export const Comment = ({
   update,
   setUpdate,
 }) => {
+  const [show, setShow] = useState([false, ""]);
   const { userAuth } = useContext(AuthContext);
 
-  const deleteComment = async (id) => {
-    const confirm = window.confirm("You want to delete this comment?");
-    if (!confirm) return;
-    await axios.delete(`http://localhost:3002/comments/${id}`);
+  useEffect(() => {
     setUpdate(!update);
-  };
+  }, [setUpdate, show, id]);
 
   return (
     <div className="container mb-3 p-2 position-relative rounded-3 one-comment-custom">
+      <ModalConfirm url="comments" show={show} setShow={setShow} />
       <div className="mb-2">
         <strong>
           <Link className="text-decoration-none" to={`/profile/${usersId}`}>
@@ -37,7 +36,9 @@ export const Comment = ({
           className="fa-solid fa-trash position-absolute"
           title="Delete"
           style={{ cursor: "pointer", top: "10px", right: "10px" }}
-          onClick={() => deleteComment(id)}
+          onClick={() =>
+            setShow([true, "You want to remove this comment?", id])
+          }
         ></i>
       )}
     </div>

@@ -11,6 +11,7 @@ import {
   PersonalInfo,
   Personality,
 } from "../components/Profile";
+import endpoints from "../utils/endpoints";
 import { NotFoundPage } from "./NotFoundPage";
 
 export const ProfilePage = () => {
@@ -22,7 +23,7 @@ export const ProfilePage = () => {
   const validateUser = useMemo(
     () => async () => {
       await axios
-        .get(`http://localhost:3002/users/${id}`)
+        .get(`${endpoints.getUsers}/${id}`)
         .then((res) => {
           setUser(res.data);
           setUserValid(true);
@@ -45,16 +46,7 @@ export const ProfilePage = () => {
       {loading === "loading" ? (
         <Loading />
       ) : userValid ? (
-        <div
-          className="container-fluid py-2 page-profile-custom"
-          style={
-            {
-              // background: "rgb(234, 207, 255)",
-              // height: "calc(100vh - 58px)",
-              // minWidth: "1000px",
-            }
-          }
-        >
+        <div className="container-fluid py-2 page-profile-custom">
           <div className="container p-3 d-flex rounded-4 col-12 gap-3 container-profile-custom">
             <PersonalInfo username={user.username} />
 

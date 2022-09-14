@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import endpoints from "../../utils/endpoints";
 
 export const FormUpdatePost = ({ values }) => {
   const { id } = useParams();
@@ -11,12 +13,19 @@ export const FormUpdatePost = ({ values }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({});
 
-  const updatePost = async (v) => {
-    await axios.patch(`http://localhost:3002/posts/${id}`, v);
+  const updatePost = async (data) => {
+    await axios.patch(`${endpoints.getPosts}/${id}`, data);
     navigate("/posts");
   };
+
+  useEffect(() => {
+    setValue("title", values.title);
+    setValue("subtitle", values.subtitle);
+    setValue("content", values.content);
+  }, [setValue, values]);
 
   return (
     <Form onSubmit={handleSubmit(updatePost)}>

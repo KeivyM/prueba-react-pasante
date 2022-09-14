@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FormCreatePost, FormUpdatePost } from "../components/forms";
+import endpoints from "../utils/endpoints";
 
 export const PostPage = ({ type }) => {
   const [defaultValues, setDefaultValues] = useState({});
@@ -12,7 +13,7 @@ export const PostPage = ({ type }) => {
     () => async () => {
       if (!id) return;
       await axios
-        .get(`http://localhost:3002/posts/${id}`)
+        .get(`${endpoints.getPosts}/${id}`)
         .then((res) => setDefaultValues(res.data));
     },
     [id]
