@@ -1,5 +1,15 @@
 {
-  "users": [],
+  "users": [
+    {
+      "fullname": "Pablo Lopez",
+      "email": "alberto@gmail.com",
+      "birthdate": "1999-01-04",
+      "username": "Pablo Lopez",
+      "password": "123qweASD.",
+      "registerDate": "Wed, 02 Nov 2022 18:54:44 GMT",
+      "id": 1
+    }
+  ],
   "posts": [],
   "comments": []
 }
